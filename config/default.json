@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb://localhost:27017/devform"
+  "mongoURI": "mongodb://localhost:27017/devform",
+  "jwtSecret": "secretkey"
 }
