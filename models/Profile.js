@@ -76,7 +76,7 @@ const ProfileSchema = new mongoose.Schema({
     twitter: String,
     facebook: String,
     linkedin: String,
-    instagran: String,
+    instagram: String,
   },
   date: {
     type: Date,
