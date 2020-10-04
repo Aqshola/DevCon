@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb://localhost:27017/devform",
-  "jwtSecret": "secretkey"
+  "jwtSecret": "secretkey",
+  "githubClientId": "368fe6252015b9d15f16",
+  "githubSecret": "ba24d7d1ff05d2721b9ef706217f61a5cef4aad8"
 }
