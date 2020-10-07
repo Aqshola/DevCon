@@ -42,7 +42,6 @@ router.post(
 // @route   Get api/post
 // @desc    Get all post
 // @access  Private
-
 router.get("/", auth, async (req, res) => {
   try {
     const post = await Post.find().sort({ date: -1 });
@@ -96,6 +95,35 @@ router.delete("/:id", auth, async (req, res) => {
 
     console.error(err.message);
     res.status(500).send("Server error");
+  }
+});
+
+// @route   PUT api/post/like/:id
+// @desc    Like or Unlike post
+// @access  Private
+router.put("/like/:id", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    if (
+      post.likes.filter((like) => like.user.toString() === req.user.id).length >
+      0
+    ) {
+      const removeIndex = post.likes
+        .map((like) => like.user.toString())
+        .indexOf(req.user.id);
+
+      post.likes.splice(removeIndex, 1);
+    } else {
+      post.likes.unshift({ user: req.user.id });
+    }
+
+    post.save();
+
+    res.json(post);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("server error");
   }
 });
 
