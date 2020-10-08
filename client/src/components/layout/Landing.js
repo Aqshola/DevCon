@@ -4,13 +4,10 @@ import {
   Box,
   Button,
   Container,
-  createMuiTheme,
-  responsiveFontSizes,
-  ThemeProvider,
 } from "@material-ui/core";
+
 import React from "react";
 
-let theme = createMuiTheme();
 const style = makeStyles((theme) => ({
   root: {
     margin: 0,
@@ -26,6 +23,11 @@ const style = makeStyles((theme) => ({
     [theme.breakpoints.down("xs")]: {
       justifyContent: "center",
       textAlign: "center",
+
+      "& h1": {
+        fontSize: "70px",
+        marginLeft: "5px",
+      },
     },
   },
   imgBox: {
@@ -50,30 +52,39 @@ const style = makeStyles((theme) => ({
     display: "flex",
     marginTop: "50px",
     columnGap: "20px",
+    [theme.breakpoints.down("xs")]: {
+      justifyContent: "center",
+    },
   },
   btn: {
     width: "100px",
     boxShadow: "none",
   },
 }));
-export default function Landing(params) {
+export default function Landing(props, {}) {
   const classes = style();
-  theme = responsiveFontSizes(theme);
   return (
     <Container className={classes.container}>
       <Box className={classes.titleBox}>
-        <ThemeProvider theme={theme}>
-          <Typography variant="h1">DevCon</Typography>
-          <Typography variant="h6">Developing Connection</Typography>
-          <Box className={classes.btnBox}>
-            <Button className={classes.btn} variant="contained" color="primary">
-              Sign Up
-            </Button>
-            <Button variant="contained" className={classes.btn}>
-              Login
-            </Button>
-          </Box>
-        </ThemeProvider>
+        <Typography variant="h1">DevCon</Typography>
+        <Typography variant="h6">Developing Connection</Typography>
+        <Box className={classes.btnBox}>
+          <Button
+            onClick={() => props.history.push("/register")}
+            className={classes.btn}
+            variant="contained"
+            color="primary"
+          >
+            Sign Up
+          </Button>
+          <Button
+            onClick={() => props.history.push("/login")}
+            variant="contained"
+            className={classes.btn}
+          >
+            Login
+          </Button>
+        </Box>
       </Box>
 
       <Box className={classes.imgBox}>
