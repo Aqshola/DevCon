@@ -23,10 +23,17 @@ const style = makeStyles((theme) => ({
       fontWeight: "300",
       marginLeft: "5px",
     },
+    [theme.breakpoints.down("xs")]: {
+      justifyContent: "center",
+      textAlign: "center",
+    },
   },
   imgBox: {
     display: "flex",
     width: "600px",
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
+    },
   },
   img: {
     display: "flex",
@@ -34,6 +41,9 @@ const style = makeStyles((theme) => ({
   },
   titleBox: {
     alignSelf: "center",
+    [theme.breakpoints.down("xs")]: {
+      marginTop: theme.spacing(5),
+    },
   },
   btnBox: {
     marginLeft: "5px",
@@ -54,7 +64,7 @@ export default function Landing(params) {
       <Box className={classes.titleBox}>
         <ThemeProvider theme={theme}>
           <Typography variant="h1">DevCon</Typography>
-          <Typography variant="h6">Connect developer</Typography>
+          <Typography variant="h6">Developing Connection</Typography>
           <Box className={classes.btnBox}>
             <Button className={classes.btn} variant="contained" color="primary">
               Sign Up
