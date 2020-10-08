@@ -1,6 +1,16 @@
-import { Typography, makeStyles, Box, Button } from "@material-ui/core";
+import {
+  Typography,
+  makeStyles,
+  Box,
+  Button,
+  Container,
+  createMuiTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from "@material-ui/core";
 import React from "react";
 
+let theme = createMuiTheme();
 const style = makeStyles((theme) => ({
   root: {
     margin: 0,
@@ -8,12 +18,11 @@ const style = makeStyles((theme) => ({
   container: {
     display: "flex",
     justifyContent: "space-between",
-    "& p": {
-      fontSize: "30px",
+    paddingTop: theme.spacing(10),
+    "& h6": {
       fontWeight: "300",
       marginLeft: "5px",
     },
-    padding: theme.spacing(15),
   },
   imgBox: {
     display: "flex",
@@ -24,7 +33,7 @@ const style = makeStyles((theme) => ({
     width: "100%",
   },
   titleBox: {
-    marginTop: "40px",
+    alignSelf: "center",
   },
   btnBox: {
     marginLeft: "5px",
@@ -39,19 +48,22 @@ const style = makeStyles((theme) => ({
 }));
 export default function Landing(params) {
   const classes = style();
+  theme = responsiveFontSizes(theme);
   return (
-    <Box className={classes.container}>
+    <Container className={classes.container}>
       <Box className={classes.titleBox}>
-        <Typography variant="h1">DevCon</Typography>
-        <Typography>Connect developer</Typography>
-        <Box className={classes.btnBox}>
-          <Button className={classes.btn} variant="contained" color="primary">
-            Sign Up
-          </Button>
-          <Button variant="contained" className={classes.btn}>
-            Login
-          </Button>
-        </Box>
+        <ThemeProvider theme={theme}>
+          <Typography variant="h1">DevCon</Typography>
+          <Typography variant="h6">Connect developer</Typography>
+          <Box className={classes.btnBox}>
+            <Button className={classes.btn} variant="contained" color="primary">
+              Sign Up
+            </Button>
+            <Button variant="contained" className={classes.btn}>
+              Login
+            </Button>
+          </Box>
+        </ThemeProvider>
       </Box>
 
       <Box className={classes.imgBox}>
@@ -61,6 +73,6 @@ export default function Landing(params) {
           alt="display img"
         />
       </Box>
-    </Box>
+    </Container>
   );
 }
