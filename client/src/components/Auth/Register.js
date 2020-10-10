@@ -27,7 +27,7 @@ const style = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    height: "400px",
+    height: "500px",
     "& h3": {
       textAlign: "center",
     },
@@ -36,8 +36,7 @@ const style = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-
-    height: "200px",
+    height: "300px",
   },
   inputSpace: {
     [theme.breakpoints.down("xs")]: {
@@ -52,26 +51,70 @@ const style = makeStyles((theme) => ({
   },
 }));
 
-export default function Login(params) {
-  console.log(height);
-
+export default function Register(props) {
   const classes = style();
+  const [formData, setformData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    password2: "",
+  });
+  const { name, email, password, password2 } = formData;
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setformData({ ...formData, [name]: value });
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (password !== password2) {
+      console.log("Password do not match");
+    } else {
+      console.log(formData);
+    }
+  };
+
   return (
     <Container className={classes.container}>
       <Paper className={classes.paper} elevation={3}>
         <Typography variant="h3">Sign Up</Typography>
         <FormControl className={classes.form}>
-          <TextField variant="outlined" label="Email" />
+          <TextField
+            variant="outlined"
+            label="Email"
+            name="email"
+            required
+            value={email}
+            onChange={onChange}
+          />
           <TextField
             className={classes.inputSpace}
             variant="outlined"
             label="Name"
+            name="name"
+            value={name}
+            required
+            onChange={onChange}
           />
           <TextField
             className={classes.inputSpace}
             variant="outlined"
             label="password"
             type="password"
+            name="password"
+            value={password}
+            required
+            onChange={onChange}
+          />
+          <TextField
+            className={classes.inputSpace}
+            variant="outlined"
+            label="Confrim password"
+            name="password2"
+            type="password"
+            value={password2}
+            required
+            onChange={onChange}
           />
         </FormControl>
         <Box className={classes.btnGrp}>
@@ -80,6 +123,7 @@ export default function Login(params) {
             size="large"
             variant="contained"
             color="primary"
+            onClick={onSubmit}
           >
             Sign Up
           </Button>
