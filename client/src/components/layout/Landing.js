@@ -52,7 +52,8 @@ const style = makeStyles((theme) => ({
     marginTop: "50px",
     columnGap: "20px",
     [theme.breakpoints.down("xs")]: {
-      justifyContent: "center",
+      width: "230px",
+      justifyContent: "space-between",
     },
   },
   btn: {
