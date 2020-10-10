@@ -26,7 +26,8 @@ const style = makeStyles((theme) => ({
     padding: theme.spacing(5),
     display: "flex",
     flexDirection: "column",
-    rowGap: "50px",
+    justifyContent: "space-between",
+    height: "370px",
     "& h3": {
       textAlign: "center",
     },
@@ -34,10 +35,8 @@ const style = makeStyles((theme) => ({
   form: {
     display: "flex",
     flexDirection: "column",
-    rowGap: "10px",
-    [theme.breakpoints.down("xs")]: {
-      marginTop: "50px",
-    },
+    justifyContent: "space-between",
+    height: "130px",
   },
   inputSpace: {
     [theme.breakpoints.down("xs")]: {
@@ -47,10 +46,8 @@ const style = makeStyles((theme) => ({
   btnGrp: {
     display: "flex",
     flexDirection: "column",
-    rowGap: "10px",
-    [theme.breakpoints.down("xs")]: {
-      marginTop: "50px",
-    },
+    height: "70px",
+    justifyContent: "space-between",
   },
 }));
 
@@ -72,7 +69,12 @@ export default function Login(params) {
           />
         </FormControl>
         <Box className={classes.btnGrp}>
-          <Button style={{ width: "100%" }} variant="contained" color="primary">
+          <Button
+            style={{ width: "100%" }}
+            size="large"
+            variant="contained"
+            color="primary"
+          >
             Login
           </Button>
           <Link component={RouterLink} to="/register">
