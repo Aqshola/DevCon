@@ -51,10 +51,9 @@ const style = makeStyles((theme) => ({
     display: "flex",
     marginTop: "50px",
     columnGap: "20px",
-    [theme.breakpoints.down("xs")]: {
-      width: "230px",
-      justifyContent: "space-between",
-    },
+    width: "230px",
+    justifyContent: "space-between",
+    [theme.breakpoints.down("xs")]: {},
   },
   btn: {
     width: "100px",
