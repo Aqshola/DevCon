@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     width: "auto",
   },
   button: {
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       display: "none",
     },
   },
