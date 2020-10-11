@@ -8,7 +8,10 @@ import {
   Paper,
   Button,
   Link,
+  Snackbar,
 } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -59,18 +62,48 @@ export default function Register(props) {
     password: "",
     password2: "",
   });
-  const { name, email, password, password2 } = formData;
 
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setformData({ ...formData, [name]: value });
+  const [errVal, seterrVal] = useState("");
+  const { name, email, password, password2 } = formData;
+  const [error, seterror] = useState({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+  });
+
+  const handleClose = () => {
+    seterror({ ...error, open: false });
   };
-  const onSubmit = (e) => {
+  const onChange = (e) => {
+    setformData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log("Password do not match");
+      seterrVal("Password do not match");
+      seterror({ ...error, open: true });
     } else {
-      console.log(formData);
+      const newUser = {
+        name,
+        email,
+        password,
+      };
+
+      try {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+
+        const body = JSON.stringify(newUser);
+        const res = await axios.post("/api/users", body, config);
+        console.log(res.data);
+      } catch (err) {
+        const errorvalue = err.response.data.errors[0].msg;
+        seterrVal(errorvalue);
+        seterror({ ...error, open: true });
+      }
     }
   };
 
@@ -83,7 +116,6 @@ export default function Register(props) {
             variant="outlined"
             label="Email"
             name="email"
-            required
             value={email}
             onChange={onChange}
           />
@@ -93,7 +125,6 @@ export default function Register(props) {
             label="Name"
             name="name"
             value={name}
-            required
             onChange={onChange}
           />
           <TextField
@@ -103,7 +134,6 @@ export default function Register(props) {
             type="password"
             name="password"
             value={password}
-            required
             onChange={onChange}
           />
           <TextField
@@ -113,7 +143,6 @@ export default function Register(props) {
             name="password2"
             type="password"
             value={password2}
-            required
             onChange={onChange}
           />
         </FormControl>
@@ -132,6 +161,17 @@ export default function Register(props) {
           </Link>
         </Box>
       </Paper>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={error.open}
+        onClose={handleClose}
+        key={"top" + "center"}
+        autoHideDuration={6000}
+      >
+        <Alert onClose={handleClose} severity="error">
+          {errVal}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 }
