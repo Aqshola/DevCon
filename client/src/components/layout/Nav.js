@@ -65,10 +65,14 @@ export default function Nav(props) {
           <Button color="inherit">Developer</Button>
         </ListItem>
         <ListItem>
-          <Button color="inherit">Login</Button>
+          <Button component={routeLink} to="/login" color="inherit">
+            Login
+          </Button>
         </ListItem>
         <ListItem>
-          <Button color="inherit">Register</Button>
+          <Button component={routeLink} to="/register" color="inherit">
+            Register
+          </Button>
         </ListItem>
       </List>
     );
@@ -94,10 +98,20 @@ export default function Nav(props) {
           <Button className={classes.button} color="inherit">
             Developer
           </Button>
-          <Button className={classes.button} color="inherit">
+          <Button
+            component={routeLink}
+            to="/login"
+            className={classes.button}
+            color="inherit"
+          >
             Login
           </Button>
-          <Button className={classes.button} color="inherit">
+          <Button
+            component={routeLink}
+            to="/register"
+            className={classes.button}
+            color="inherit"
+          >
             Register
           </Button>
         </Toolbar>
