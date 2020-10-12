@@ -8,12 +8,12 @@ import {
   Paper,
   Button,
   Link,
-  Snackbar,
 } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
+
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import Alert from "../layout/Alert";
 
 const height = window.innerHeight;
 const style = makeStyles((theme) => ({
@@ -161,17 +161,7 @@ export default function Register(props) {
           </Link>
         </Box>
       </Paper>
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={error.open}
-        onClose={handleClose}
-        key={"top" + "center"}
-        autoHideDuration={6000}
-      >
-        <Alert onClose={handleClose} severity="error">
-          {errVal}
-        </Alert>
-      </Snackbar>
+      <Alert open={error.open} close={handleClose} value={errVal} />
     </Container>
   );
 }
