@@ -1,18 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { Alert } from "@material-ui/lab";
 import { Snackbar } from "@material-ui/core";
-export default function ({ open, close, value }) {
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { removeAlert } from "../../action/alert";
+const AlertCom = ({ alerts, removeAlert }) => {
   return (
-    <Snackbar
-      anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      open={open}
-      onClose={close}
-      key={"top" + "center"}
-      autoHideDuration={6000}
-    >
-      <Alert variant="filled" onClose={close} severity="error">
-        {value}
-      </Alert>
-    </Snackbar>
+    alerts !== null &&
+    alerts.length > 0 &&
+    alerts.map((alert) => (
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={true}
+        key={alert.id}
+        onClose={() => removeAlert(alert.id)}
+      >
+        <Alert
+          onClose={() => removeAlert(alert.id)}
+          variant="filled"
+          severity={alert.alertType}
+        >
+          {alert.msg}
+        </Alert>
+      </Snackbar>
+    ))
   );
-}
+};
+
+AlertCom.propTypes = {
+  alerts: PropTypes.array.isRequired,
+};
+const mapStateToProps = (state) => ({
+  alerts: state.alert,
+});
+export default connect(mapStateToProps, { removeAlert })(AlertCom);

@@ -9,11 +9,13 @@ import {
   Button,
   Link,
 } from "@material-ui/core";
-
 import axios from "axios";
+import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
-import Alert from "../layout/Alert";
+import AlertCom from "../layout/Alert";
+import { setAlert } from "../../action/alert";
+import PropTypes from "prop-types";
 
 const height = window.innerHeight;
 const style = makeStyles((theme) => ({
@@ -54,7 +56,7 @@ const style = makeStyles((theme) => ({
   },
 }));
 
-export default function Register(props) {
+const Register = (props) => {
   const classes = style();
   const [formData, setformData] = useState({
     name: "",
@@ -71,17 +73,13 @@ export default function Register(props) {
     horizontal: "center",
   });
 
-  const handleClose = () => {
-    seterror({ ...error, open: false });
-  };
   const onChange = (e) => {
     setformData({ ...formData, [e.target.name]: e.target.value });
   };
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      seterrVal("Password do not match");
-      seterror({ ...error, open: true });
+      props.setAlert("Password do not match", "error");
     } else {
       const newUser = {
         name,
@@ -161,7 +159,13 @@ export default function Register(props) {
           </Link>
         </Box>
       </Paper>
-      <Alert open={error.open} close={handleClose} value={errVal} />
+      <AlertCom />
     </Container>
   );
-}
+};
+
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+};
+
+export default connect(null, { setAlert })(Register);
