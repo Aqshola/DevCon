@@ -15,6 +15,7 @@ import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import AlertCom from "../layout/Alert";
 import { setAlert } from "../../action/alert";
+import { register } from "../../action/auth";
 import PropTypes from "prop-types";
 
 const height = window.innerHeight;
@@ -56,7 +57,7 @@ const style = makeStyles((theme) => ({
   },
 }));
 
-const Register = (props) => {
+const Register = ({ setAlert, register }) => {
   const classes = style();
   const [formData, setformData] = useState({
     name: "",
@@ -65,13 +66,7 @@ const Register = (props) => {
     password2: "",
   });
 
-  const [errVal, seterrVal] = useState("");
   const { name, email, password, password2 } = formData;
-  const [error, seterror] = useState({
-    open: false,
-    vertical: "top",
-    horizontal: "center",
-  });
 
   const onChange = (e) => {
     setformData({ ...formData, [e.target.name]: e.target.value });
@@ -79,29 +74,9 @@ const Register = (props) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      props.setAlert("Password do not match", "error");
+      setAlert("Password do not match", "error");
     } else {
-      const newUser = {
-        name,
-        email,
-        password,
-      };
-
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
-
-        const body = JSON.stringify(newUser);
-        const res = await axios.post("/api/users", body, config);
-        console.log(res.data);
-      } catch (err) {
-        const errorvalue = err.response.data.errors[0].msg;
-        seterrVal(errorvalue);
-        seterror({ ...error, open: true });
-      }
+      register({ name, email, password });
     }
   };
 
@@ -166,6 +141,7 @@ const Register = (props) => {
 
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setAlert })(Register);
+export default connect(null, { setAlert, register })(Register);
