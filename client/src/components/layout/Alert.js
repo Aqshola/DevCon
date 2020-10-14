@@ -4,6 +4,8 @@ import { Snackbar } from "@material-ui/core";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { removeAlert } from "../../action/alert";
+import { SnackbarProvider, useSnackbar } from "notistack";
+
 const AlertCom = ({ alerts, removeAlert }) => {
   return (
     alerts !== null &&
