@@ -7,31 +7,39 @@ import { removeAlert } from "../../action/alert";
 import { SnackbarProvider, useSnackbar } from "notistack";
 
 const AlertCom = ({ alerts, removeAlert }) => {
-  return (
-    alerts !== null &&
-    alerts.length > 0 &&
-    alerts.map((alert) => (
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={true}
-        key={alert.id}
-        onClose={() => removeAlert(alert.id)}
-      >
+  const handleClose = (id) => removeAlert(id);
+  const Warn = () => {
+    if (alerts.value == 0) {
+      return <div></div>;
+    } else {
+      return alerts.value.map((alert) => (
         <Alert
-          onClose={() => removeAlert(alert.id)}
+          style={{ marginBottom: "10px" }}
+          key={alert.id}
           variant="filled"
           severity={alert.alertType}
         >
           {alert.msg}
         </Alert>
-      </Snackbar>
-    ))
+      ));
+    }
+  };
+
+  return (
+    <Snackbar
+      anchorOrigin={{ vertical: "top", horizontal: "left" }}
+      open={alerts.snack}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <Warn />
+    </Snackbar>
   );
 };
 
-AlertCom.propTypes = {
-  alerts: PropTypes.array.isRequired,
-};
+AlertCom.propTypes = {};
 const mapStateToProps = (state) => ({
   alerts: state.alert,
 });

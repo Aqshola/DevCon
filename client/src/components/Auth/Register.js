@@ -9,7 +9,7 @@ import {
   Button,
   Link,
 } from "@material-ui/core";
-import axios from "axios";
+
 import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
@@ -74,7 +74,7 @@ const Register = ({ setAlert, register }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      setAlert("Password do not match", "error");
+      setAlert("password do not match", "error");
     } else {
       register({ name, email, password });
     }
@@ -119,6 +119,7 @@ const Register = ({ setAlert, register }) => {
             onChange={onChange}
           />
         </FormControl>
+
         <Box className={classes.btnGrp}>
           <Button
             style={{ width: "100%" }}

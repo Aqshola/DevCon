@@ -1,14 +1,24 @@
 import { SET_ALERT, REMOVE_ALERT } from "../action/types.js";
 
-const initialState = [];
+const initialState = {
+  snack: false,
+  value: [],
+};
 
 export default (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case SET_ALERT:
-      return [...state, payload];
+      state.snack = true;
+      state.value.push(payload);
+      return { ...state };
     case REMOVE_ALERT:
-      return state.filter((alert) => alert.id !== payload);
+      state.value = state.value.filter((alert) => alert.id !== payload);
+      if (state.value.length == 0) {
+        state.snack = false;
+      }
+      console.log(state.value);
+      return { ...state };
     default:
       return state;
   }

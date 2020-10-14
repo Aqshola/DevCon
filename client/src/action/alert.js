@@ -4,13 +4,13 @@ export const setAlert = (msg, alertType) => (dispatch) => {
   const id = uuidv4();
   dispatch({
     type: SET_ALERT,
-    payload: { msg, alertType, id },
+    payload: { id, msg, alertType },
   });
 
   setTimeout(() => {
     console.log(id);
     dispatch({ type: REMOVE_ALERT, payload: id });
-  }, 5000);
+  }, 3000);
 };
 
 export const removeAlert = (id) => (dispatch) => {
