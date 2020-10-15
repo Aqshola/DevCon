@@ -9,9 +9,12 @@ import {
   Button,
   Link,
 } from "@material-ui/core";
+import { setAlert } from "../../action/alert";
+import { login } from "../../action/auth";
+import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
-
+import AlertCom from "../layout/Alert";
 const height = window.innerHeight;
 const style = makeStyles((theme) => ({
   container: {
@@ -51,21 +54,39 @@ const style = makeStyles((theme) => ({
   },
 }));
 
-export default function Login(params) {
-  console.log(height);
+const Login = ({ login, setAlert }) => {
+  const [data, setdata] = useState({
+    email: "",
+    password: "",
+  });
 
+  const onChange = (e) => {
+    setdata({ ...data, [e.target.name]: e.target.value });
+  };
+  const onSubmit = async (e) => {
+    const { email, password } = data;
+    e.preventDefault();
+    login(email, password);
+  };
   const classes = style();
   return (
     <Container className={classes.container}>
       <Paper className={classes.paper} elevation={3}>
         <Typography variant="h3">Login</Typography>
         <FormControl className={classes.form}>
-          <TextField variant="outlined" label="Email" />
+          <TextField
+            variant="outlined"
+            label="Email"
+            name="email"
+            onChange={onChange}
+          />
           <TextField
             className={classes.inputSpace}
+            name="password"
             variant="outlined"
             label="password"
             type="password"
+            onChange={onChange}
           />
         </FormControl>
         <Box className={classes.btnGrp}>
@@ -74,6 +95,7 @@ export default function Login(params) {
             size="large"
             variant="contained"
             color="primary"
+            onClick={onSubmit}
           >
             Login
           </Button>
@@ -82,6 +104,9 @@ export default function Login(params) {
           </Link>
         </Box>
       </Paper>
+      <AlertCom />
     </Container>
   );
-}
+};
+
+export default connect(null, { setAlert, login })(Login);
