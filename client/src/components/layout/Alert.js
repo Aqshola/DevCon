@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Alert } from "@material-ui/lab";
 import { Snackbar } from "@material-ui/core";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { removeAlert } from "../../action/alert";
-import { SnackbarProvider, useSnackbar } from "notistack";
 
 const AlertCom = ({ alerts, removeAlert }) => {
   const handleClose = (id) => removeAlert(id);
@@ -39,7 +37,6 @@ const AlertCom = ({ alerts, removeAlert }) => {
   );
 };
 
-AlertCom.propTypes = {};
 const mapStateToProps = (state) => ({
   alerts: state.alert,
 });

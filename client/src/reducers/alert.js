@@ -17,7 +17,6 @@ export default (state = initialState, action) => {
       if (state.value.length == 0) {
         state.snack = false;
       }
-      console.log(state.value);
       return { ...state };
     default:
       return state;
