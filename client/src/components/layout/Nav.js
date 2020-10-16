@@ -10,10 +10,12 @@ import {
   IconButton,
   List,
   ListItem,
+  Box,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-
 import { Link as routeLink } from "react-router-dom";
+import { connect } from "react-redux";
+import { logout } from "../../action/auth";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -38,9 +40,15 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  menu: {
+    display: "flex",
+    flexDirection: "column",
+
+    justifyContent: "space-between",
+  },
 }));
 
-export default function Nav(props) {
+const Nav = ({ auth: { isAuthenticated, loading }, logout }) => {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -58,25 +66,69 @@ export default function Nav(props) {
     }
     setState({ ...state, [anchor]: open });
   };
-  const list = (anchor) => {
+  const list = () => {
     return (
-      <List>
-        <ListItem>
-          <Button color="inherit">Developer</Button>
-        </ListItem>
-        <ListItem>
-          <Button component={routeLink} to="/login" color="inherit">
-            Login
-          </Button>
-        </ListItem>
-        <ListItem>
-          <Button component={routeLink} to="/register" color="inherit">
-            Register
-          </Button>
-        </ListItem>
-      </List>
+      <Box
+        flexDirection="column"
+        justifyContent="space-between"
+        height="200px"
+        width="150px"
+      >
+        <Button color="inherit" fullWidth>
+          Developer
+        </Button>
+        {!loading && (
+          <>
+            {isAuthenticated ? (
+              <AuthLink divClass={classes.menu} />
+            ) : (
+              <GuestLink divClass={classes.menu} />
+            )}
+          </>
+        )}
+      </Box>
     );
   };
+
+  const GuestLink = ({ classes, divClass }) => {
+    return (
+      <div className={divClass}>
+        <Button
+          component={routeLink}
+          to="/login"
+          className={classes}
+          color="inherit"
+        >
+          Login
+        </Button>
+        <Button
+          component={routeLink}
+          to="/register"
+          className={classes}
+          color="inherit"
+        >
+          Register
+        </Button>
+      </div>
+    );
+  };
+
+  const AuthLink = ({ classes, divClass }) => {
+    return (
+      <div className={divClass}>
+        <Button
+          component={routeLink}
+          to="/login"
+          className={classes}
+          color="inherit"
+          onClick={() => logout()}
+        >
+          Logout
+        </Button>
+      </div>
+    );
+  };
+
   return (
     <>
       <AppBar position="static" color="transparent">
@@ -98,22 +150,15 @@ export default function Nav(props) {
           <Button className={classes.button} color="inherit">
             Developer
           </Button>
-          <Button
-            component={routeLink}
-            to="/login"
-            className={classes.button}
-            color="inherit"
-          >
-            Login
-          </Button>
-          <Button
-            component={routeLink}
-            to="/register"
-            className={classes.button}
-            color="inherit"
-          >
-            Register
-          </Button>
+          {!loading && (
+            <>
+              {isAuthenticated ? (
+                <AuthLink classes={classes.button} />
+              ) : (
+                <GuestLink classes={classes.button} />
+              )}
+            </>
+          )}
         </Toolbar>
       </AppBar>
 
@@ -126,4 +171,10 @@ export default function Nav(props) {
       </Drawer>
     </>
   );
-}
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logout })(Nav);
