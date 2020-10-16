@@ -13,7 +13,7 @@ import { setAlert } from "../../action/alert";
 import { login } from "../../action/auth";
 import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, Redirect } from "react-router-dom";
 import AlertCom from "../layout/Alert";
 const height = window.innerHeight;
 const style = makeStyles((theme) => ({
@@ -54,12 +54,11 @@ const style = makeStyles((theme) => ({
   },
 }));
 
-const Login = ({ login, setAlert }) => {
+const Login = ({ isAuthenticated, login, setAlert }) => {
   const [data, setdata] = useState({
     email: "",
     password: "",
   });
-
   const onChange = (e) => {
     setdata({ ...data, [e.target.name]: e.target.value });
   };
@@ -69,6 +68,11 @@ const Login = ({ login, setAlert }) => {
     login(email, password);
   };
   const classes = style();
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
+
   return (
     <Container className={classes.container}>
       <Paper className={classes.paper} elevation={3}>
@@ -109,4 +113,8 @@ const Login = ({ login, setAlert }) => {
   );
 };
 
-export default connect(null, { setAlert, login })(Login);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { setAlert, login })(Login);

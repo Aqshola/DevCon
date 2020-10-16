@@ -12,7 +12,7 @@ import {
 
 import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, Redirect } from "react-router-dom";
 import AlertCom from "../layout/Alert";
 import { setAlert } from "../../action/alert";
 import { register } from "../../action/auth";
@@ -57,7 +57,7 @@ const style = makeStyles((theme) => ({
   },
 }));
 
-const Register = ({ setAlert, register }) => {
+const Register = ({ isAuthenticated, setAlert, register }) => {
   const classes = style();
   const [formData, setformData] = useState({
     name: "",
@@ -67,6 +67,10 @@ const Register = ({ setAlert, register }) => {
   });
 
   const { name, email, password, password2 } = formData;
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   const onChange = (e) => {
     setformData({ ...formData, [e.target.name]: e.target.value });
@@ -145,4 +149,8 @@ Register.propTypes = {
   register: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setAlert, register })(Register);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { setAlert, register })(Register);

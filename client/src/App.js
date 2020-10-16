@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./action/auth";
+import Dashboard from "./components/layout/Dashboard";
 
 if (localStorage.token) {
   setAuthToken(localStorage.getItem("token"));
@@ -28,6 +29,7 @@ const App = () => {
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/dashboard" component={Dashboard} />
         </Switch>
       </Router>
     </Provider>

@@ -6,6 +6,8 @@ import {
   Container,
 } from "@material-ui/core";
 import React from "react";
+import { connect } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
 
 const style = makeStyles((theme) => ({
   root: {
@@ -60,8 +62,13 @@ const style = makeStyles((theme) => ({
     boxShadow: "none",
   },
 }));
-export default function Landing(props, {}) {
+const Landing = ({ isAuthenticated }) => {
   const classes = style();
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
+
   return (
     <Container className={classes.container}>
       <Box className={classes.titleBox}>
@@ -69,17 +76,19 @@ export default function Landing(props, {}) {
         <Typography variant="h6">Developing Connection</Typography>
         <Box className={classes.btnBox}>
           <Button
-            onClick={() => props.history.push("/register")}
             className={classes.btn}
             variant="contained"
             color="primary"
+            component={Link}
+            to="/register"
           >
             Sign Up
           </Button>
           <Button
-            onClick={() => props.history.push("/login")}
             variant="contained"
             className={classes.btn}
+            component={Link}
+            to="/login"
           >
             Login
           </Button>
@@ -95,4 +104,10 @@ export default function Landing(props, {}) {
       </Box>
     </Container>
   );
-}
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, {})(Landing);
