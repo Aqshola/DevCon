@@ -4,14 +4,24 @@ import { Redirect } from "react-router-dom";
 import { getCurrentProfile } from "../../action/profile";
 import { loadUser } from "../../action/auth";
 import PropTypes from "prop-types";
+import Spinner from "../layout/Spinner";
 
-const Dashboard = ({ getCurrentProfile, auth, profile, loadUser }) => {
+const Dashboard = ({
+  getCurrentProfile,
+  auth: { user },
+  profile: { profile, loading },
+  loadUser,
+}) => {
   useEffect(() => {
     loadUser();
     getCurrentProfile();
   }, []);
 
-  return <div>Welcome</div>;
+  return loading && profile === null ? (
+    <Spinner />
+  ) : (
+    <div>welcome {user && user.name}</div>
+  );
 };
 
 Dashboard.prototype = {
