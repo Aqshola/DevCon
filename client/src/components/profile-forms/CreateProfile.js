@@ -37,12 +37,13 @@ const CreateProfile = () => {
       </Typography>
       <FormControl className={classes.form}>
         <InputLabel>Select Status</InputLabel>
-        <Select onChange={handleChange} label="Status">
+        <Select onChange={handleChange} label="Status" aria-setsize="small">
           <MenuItem value="Developer">Developer</MenuItem>
           <MenuItem value="Student">Student</MenuItem>
           <MenuItem value="Ceo">Ceo</MenuItem>
         </Select>
         <TextField
+          size="small"
           label="Company"
           helperText="could be your own company of the you work for"
         />
@@ -57,9 +58,7 @@ const CreateProfile = () => {
           label="Short Bio"
           helperText="Tell us a little about yourself"
         />
-        <Button variant="contained" color="primary">
-          Submit
-        </Button>
+        <Button variant="contained"></Button>
       </FormControl>
     </>
   );
