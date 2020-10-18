@@ -5,6 +5,14 @@ import { getCurrentProfile } from "../../action/profile";
 import { loadUser } from "../../action/auth";
 import PropTypes from "prop-types";
 import Spinner from "../layout/Spinner";
+import { Box, Container, makeStyles, Typography } from "@material-ui/core";
+import CreateProfile from "../profile-forms/CreateProfile";
+
+const style = makeStyles((theme) => ({
+  box: {
+    marginTop: "30px",
+  },
+}));
 
 const Dashboard = ({
   getCurrentProfile,
@@ -12,6 +20,7 @@ const Dashboard = ({
   profile: { profile, loading },
   loadUser,
 }) => {
+  const classes = style();
   useEffect(() => {
     loadUser();
     getCurrentProfile();
@@ -20,7 +29,12 @@ const Dashboard = ({
   return loading && profile === null ? (
     <Spinner />
   ) : (
-    <div>welcome {user && user.name}</div>
+    <Container>
+      <Box marginY="30px">
+        <Typography variant="h6">Welcome {user && user.name}</Typography>
+      </Box>
+      {profile !== null ? <> Profile</> : <CreateProfile />}
+    </Container>
   );
 };
 
