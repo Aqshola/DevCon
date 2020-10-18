@@ -22,6 +22,12 @@ const style = makeStyles((theme) => ({
       width: "300px",
     },
   },
+  btn: {
+    width: "200px",
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+    },
+  },
 }));
 
 const CreateProfile = () => {
@@ -36,29 +42,61 @@ const CreateProfile = () => {
         Create Your Profile
       </Typography>
       <FormControl className={classes.form}>
-        <InputLabel>Select Status</InputLabel>
-        <Select onChange={handleChange} label="Status" aria-setsize="small">
+        <Select
+          size="small"
+          placeholder="lala"
+          variant="outlined"
+          onChange={handleChange}
+          aria-setsize="small"
+          defaultValue="Select Status"
+        >
+          <MenuItem value="Select Status" disabled>
+            Select Status
+          </MenuItem>
           <MenuItem value="Developer">Developer</MenuItem>
           <MenuItem value="Student">Student</MenuItem>
           <MenuItem value="Ceo">Ceo</MenuItem>
         </Select>
         <TextField
           size="small"
-          label="Company"
+          variant="outlined"
+          placeholder="Company"
           helperText="could be your own company of the you work for"
         />
-        <TextField label="Website" helperText="could be your own or company " />
-        <TextField label="Location" helperText="City & state suggested" />
-        <TextField label="Skills" helperText="Use comma for separated values" />
         <TextField
-          label="Github Username"
+          size="small"
+          variant="outlined"
+          placeholder="Website"
+          helperText="could be your own or company "
+        />
+        <TextField
+          size="small"
+          variant="outlined"
+          placeholder="Location"
+          helperText="City & state suggested"
+        />
+        <TextField
+          size="small"
+          variant="outlined"
+          placeholder="Skills"
+          helperText="Use comma for separated values"
+        />
+        <TextField
+          size="small"
+          variant="outlined"
+          placeholder="Github Username"
           helperText="if you  your latest repos and Github link, include your username"
         />
         <TextField
-          label="Short Bio"
+          size="small"
+          variant="outlined"
+          placeholder="Short Bio"
           helperText="Tell us a little about yourself"
+          rows={3}
         />
-        <Button variant="contained"></Button>
+        <Button color="primary" className={classes.btn} variant="contained">
+          Submit
+        </Button>
       </FormControl>
     </>
   );
