@@ -5,6 +5,7 @@ import { getCurrentProfile } from "../../action/profile";
 import { loadUser } from "../../action/auth";
 import PropTypes from "prop-types";
 import Spinner from "../layout/Spinner";
+import AlertCom from "../layout/Alert";
 import {
   Box,
   Button,
@@ -78,6 +79,7 @@ const Dashboard = ({
         </Typography>
       </Box>
       {profile !== null ? <> Profile</> : <NoProfile />}
+      <AlertCom />
     </Container>
   );
 };
