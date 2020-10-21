@@ -11,6 +11,7 @@ import {
   AccordionSummary,
   AccordionDetails,
   InputAdornment,
+  Box,
 } from "@material-ui/core";
 import AlertCom from "../layout/Alert";
 import { ExpandMore } from "@material-ui/icons";
@@ -20,7 +21,7 @@ import YouTubeIcon from "@material-ui/icons/YouTube";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import { createProfile, getCurrentProfile } from "../../action/profile";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 const style = makeStyles((theme) => ({
@@ -42,6 +43,17 @@ const style = makeStyles((theme) => ({
     minHeight: "300px",
     flexDirection: "column",
     justifyContent: "space-between",
+  },
+  box: {
+    display: "flex",
+    width: "450px",
+    justifyContent: "space-between",
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: "column",
+      width: "320px",
+      height: "100px",
+      justifyContent: "space-around",
+    },
   },
 }));
 
@@ -270,14 +282,24 @@ const EditProfile = ({
             />
           </AccordionDetails>
         </Accordion>
-        <Button
-          onClick={onSubmit}
-          color="primary"
-          className={classes.btn}
-          variant="contained"
-        >
-          Submit
-        </Button>
+        <Box className={classes.box}>
+          <Button
+            onClick={onSubmit}
+            color="primary"
+            className={classes.btn}
+            variant="contained"
+          >
+            Submit
+          </Button>
+          <Button
+            className={classes.btn}
+            variant="contained"
+            component={Link}
+            to="/dashboard"
+          >
+            Back
+          </Button>
+        </Box>
       </FormControl>
       <AlertCom />
     </Container>
