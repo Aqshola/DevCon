@@ -14,6 +14,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import DashboardActions from "./DashboardActions";
 
 const style = makeStyles((theme) => ({
   box: {
@@ -78,7 +79,7 @@ const Dashboard = ({
           Welcome {user && user.name}
         </Typography>
       </Box>
-      {profile !== null ? <> Profile</> : <NoProfile />}
+      {profile !== null ? <DashboardActions /> : <NoProfile />}
       <AlertCom />
     </Container>
   );
