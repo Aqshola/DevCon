@@ -20,10 +20,10 @@ const style = makeStyles((theme) => ({
     display: "flex",
     width: "70%",
     flexDirection: "column",
-    minHeight: "400px",
+    minHeight: "500px",
     justifyContent: "space-between",
     [theme.breakpoints.down("xs")]: {
-      height: "500px",
+      height: "600px",
     },
   },
   btn: {
@@ -91,6 +91,14 @@ const AddExperience = ({ addExperience, history }) => {
           placeholder="Company"
           value={company}
           name="company"
+          onChange={onChange}
+        />
+        <TextField
+          size="small"
+          variant="outlined"
+          placeholder="Location"
+          value={location}
+          name="location"
           onChange={onChange}
         />
 
