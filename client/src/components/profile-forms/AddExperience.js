@@ -11,7 +11,7 @@ import {
   FormControlLabel,
 } from "@material-ui/core";
 import AlertCom from "../layout/Alert";
-import { createProfile } from "../../action/profile";
+import { addExperience } from "../../action/profile";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -45,36 +45,19 @@ const style = makeStyles((theme) => ({
   },
 }));
 
-const AddExperience = ({ createProfile, history }) => {
+const AddExperience = ({ addExperience, history }) => {
   const classes = style();
   const [formData, setformData] = useState({
     company: "",
-    website: "",
+    title: "",
     location: "",
-    status: "",
-    skills: "",
-    githubusername: "",
-    bio: "",
-    twitter: "",
-    facebook: "",
-    linkedin: "",
-    youtube: "",
-    instagram: "",
+    from: "",
+    to: "",
+    current: false,
+    description: "",
   });
-  const {
-    company,
-    website,
-    location,
-    status,
-    skills,
-    githubusername,
-    bio,
-    twitter,
-    facebook,
-    linkedin,
-    youtube,
-    instagram,
-  } = formData;
+  const [disable, setdisable] = useState(false);
+  const { company, title, location, from, to, current, description } = formData;
 
   const onChange = (e) => {
     setformData({ ...formData, [e.target.name]: e.target.value });
@@ -83,7 +66,7 @@ const AddExperience = ({ createProfile, history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createProfile(formData, history);
+    addExperience(formData, history);
   };
   return (
     <Container>
@@ -98,7 +81,8 @@ const AddExperience = ({ createProfile, history }) => {
           size="small"
           variant="outlined"
           placeholder="Job Title"
-          name="jobtitle"
+          name="title"
+          value={title}
           onChange={onChange}
         />
         <TextField
@@ -115,7 +99,8 @@ const AddExperience = ({ createProfile, history }) => {
           type="date"
           size="small"
           variant="outlined"
-          name="fromdate"
+          name="from"
+          value={from}
           InputLabelProps={{
             shrink: true,
           }}
@@ -123,7 +108,17 @@ const AddExperience = ({ createProfile, history }) => {
         />
         <Box display="flex">
           <FormControlLabel
-            control={<Checkbox color="primary" />}
+            control={
+              <Checkbox
+                color="primary"
+                onChange={() => {
+                  setformData({ ...formData, current: !current });
+                  setdisable(!disable);
+                }}
+                checked={current}
+                value={current}
+              />
+            }
             label="Current Job"
           />
         </Box>
@@ -132,11 +127,13 @@ const AddExperience = ({ createProfile, history }) => {
           type="date"
           size="small"
           variant="outlined"
-          name="todate"
+          name="to"
+          value={to}
           InputLabelProps={{
             shrink: true,
           }}
           onChange={onChange}
+          disabled={disable}
         />
         <TextField
           size="small"
@@ -144,8 +141,8 @@ const AddExperience = ({ createProfile, history }) => {
           placeholder="Job Description"
           multiline
           rows={3}
-          value={bio}
-          name="jobdesc"
+          value={description}
+          name="description"
           onChange={onChange}
         />
         <Box className={classes.box}>
@@ -172,4 +169,4 @@ const AddExperience = ({ createProfile, history }) => {
   );
 };
 
-export default connect(null, { createProfile })(withRouter(AddExperience));
+export default connect(null, { addExperience })(withRouter(AddExperience));
