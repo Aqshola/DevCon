@@ -15,6 +15,7 @@ import {
 import { Link } from "react-router-dom";
 import DashboardActions from "./DashboardActions";
 import Experience from "./Experience";
+import Education from "./Education";
 
 const style = makeStyles((theme) => ({
   box: {
@@ -89,6 +90,7 @@ const Dashboard = ({
         <Box className={classes.boxContent}>
           <DashboardActions />
           <Experience experience={profile.experience} />
+          <Education education={profile.education} />
         </Box>
       ) : (
         <NoProfile />
