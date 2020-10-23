@@ -104,7 +104,7 @@ const AddExperience = ({ addExperience, history }) => {
 
         <TextField
           label="From Date"
-          type="date"
+          type="month"
           size="small"
           variant="outlined"
           name="from"
@@ -132,7 +132,7 @@ const AddExperience = ({ addExperience, history }) => {
         </Box>
         <TextField
           label="To Date"
-          type="date"
+          type="month"
           size="small"
           variant="outlined"
           name="to"
