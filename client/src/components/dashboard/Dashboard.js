@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import DashboardActions from "./DashboardActions";
+import Experience from "./Experience";
 
 const style = makeStyles((theme) => ({
   box: {
@@ -21,6 +22,12 @@ const style = makeStyles((theme) => ({
   },
   txt: {
     marginLeft: "2px",
+  },
+  boxContent: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    marginBottom: "10px",
   },
 }));
 
@@ -78,7 +85,14 @@ const Dashboard = ({
           Welcome {user && user.name}
         </Typography>
       </Box>
-      {profile !== null ? <DashboardActions /> : <NoProfile />}
+      {profile !== null ? (
+        <Box className={classes.boxContent}>
+          <DashboardActions />
+          <Experience experience={profile.experience} />
+        </Box>
+      ) : (
+        <NoProfile />
+      )}
       <AlertCom />
     </Container>
   );
