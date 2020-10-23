@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -10,6 +10,8 @@ import Paper from "@material-ui/core/Paper";
 import { connect } from "react-redux";
 import Moment from "react-moment";
 import { Button, Typography } from "@material-ui/core";
+import { deleteExperience } from "../../action/profile";
+import PropTypes from "prop-types";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -32,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Experience = ({ experience }) => {
+const Experience = ({ experience, deleteExperience, getCurrentProfile }) => {
   const classes = useStyles();
 
   const experiences = experience.map((exp) => (
@@ -46,7 +48,12 @@ const Experience = ({ experience }) => {
         {exp.to === null ? "Now" : <Moment format="MMM YYYY ">{exp.to}</Moment>}
       </TableCell>
       <TableCell align="left">
-        <Button size="small" variant="contained" color="secondary">
+        <Button
+          onClick={() => deleteExperience(exp._id)}
+          size="small"
+          variant="contained"
+          color="secondary"
+        >
           Delete
         </Button>
       </TableCell>
@@ -75,4 +82,11 @@ const Experience = ({ experience }) => {
   );
 };
 
-export default Experience;
+Experience.propTypes = {
+  experience: PropTypes.array.isRequired,
+  deleteExperience: PropTypes.func.isRequired,
+};
+
+export default connect(null, {
+  deleteExperience,
+})(Experience);

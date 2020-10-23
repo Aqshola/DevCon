@@ -9,7 +9,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Moment from "react-moment";
 import { Button, Typography } from "@material-ui/core";
-
+import { connect } from "react-redux";
+import { deleteEducation } from "../../action/profile";
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.background.default,
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Education = ({ education }) => {
+const Education = ({ education, deleteEducation }) => {
   const classes = useStyles();
 
   const educations = education.map((edc) => (
@@ -45,7 +46,12 @@ const Education = ({ education }) => {
         {edc.to === null ? "Now" : <Moment format="MMM YYYY ">{edc.to}</Moment>}
       </TableCell>
       <TableCell align="left">
-        <Button size="small" variant="contained" color="secondary">
+        <Button
+          onClick={() => deleteEducation(edc._id)}
+          size="small"
+          variant="contained"
+          color="secondary"
+        >
           Delete
         </Button>
       </TableCell>
@@ -74,4 +80,4 @@ const Education = ({ education }) => {
   );
 };
 
-export default Education;
+export default connect(null, { deleteEducation })(Education);
