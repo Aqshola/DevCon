@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 
 import { connect } from "react-redux";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link as RouterLink, Redirect } from "react-router-dom";
 import AlertCom from "../layout/Alert";
 import { setAlert } from "../../action/alert";

@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Alert } from "@material-ui/lab";
 import { Snackbar } from "@material-ui/core";
 import { connect } from "react-redux";
 import { removeAlert } from "../../action/alert";
 
 const AlertCom = ({ alerts, removeAlert }) => {
-  const handleClose = (id) => removeAlert(id);
   const Warn = () => {
     if (alerts.value == 0) {
       return <div></div>;
