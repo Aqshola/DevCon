@@ -9,7 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { connect } from "react-redux";
 import Moment from "react-moment";
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   paper: {
-    marginTop: "20px",
+    marginTop: "10px",
     width: "60%",
     [theme.breakpoints.down("xs")]: {
       width: "90%",
@@ -42,8 +42,8 @@ const Experience = ({ experience }) => {
       </TableCell>
       <TableCell align="right">{exp.title}</TableCell>
       <TableCell align="right">
-        <Moment format="YYYY MMM ">{exp.from}</Moment> -{" "}
-        {exp.to === null ? "Now" : <Moment format="YYYY MMM ">{exp.to}</Moment>}
+        <Moment format=" MMM YYYY ">{exp.from}</Moment> -{" "}
+        {exp.to === null ? "Now" : <Moment format="MMM YYYY ">{exp.to}</Moment>}
       </TableCell>
       <TableCell align="right">
         <Button size="small" variant="contained" color="secondary">
@@ -54,19 +54,24 @@ const Experience = ({ experience }) => {
   ));
 
   return (
-    <TableContainer className={classes.paper} component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Company</StyledTableCell>
-            <StyledTableCell align="right">Title</StyledTableCell>
-            <StyledTableCell align="right">Years</StyledTableCell>
-            <StyledTableCell align="right"> </StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>{experiences}</TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <Typography variant="h5" style={{ marginTop: "20px" }}>
+        Experiences
+      </Typography>
+      <TableContainer className={classes.paper} component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Company</StyledTableCell>
+              <StyledTableCell align="right">Title</StyledTableCell>
+              <StyledTableCell align="right">Years</StyledTableCell>
+              <StyledTableCell align="right"> </StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>{experiences}</TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 };
 
