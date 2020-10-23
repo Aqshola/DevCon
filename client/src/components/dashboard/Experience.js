@@ -40,12 +40,12 @@ const Experience = ({ experience }) => {
       <TableCell component="th" scope="row">
         {exp.company}
       </TableCell>
-      <TableCell align="right">{exp.title}</TableCell>
-      <TableCell align="right">
+      <TableCell align="left">{exp.title}</TableCell>
+      <TableCell align="left">
         <Moment format=" MMM YYYY ">{exp.from}</Moment> -{" "}
         {exp.to === null ? "Now" : <Moment format="MMM YYYY ">{exp.to}</Moment>}
       </TableCell>
-      <TableCell align="right">
+      <TableCell align="left">
         <Button size="small" variant="contained" color="secondary">
           Delete
         </Button>
@@ -63,9 +63,9 @@ const Experience = ({ experience }) => {
           <TableHead>
             <TableRow>
               <StyledTableCell>Company</StyledTableCell>
-              <StyledTableCell align="right">Title</StyledTableCell>
-              <StyledTableCell align="right">Years</StyledTableCell>
-              <StyledTableCell align="right"> </StyledTableCell>
+              <StyledTableCell align="left">Title</StyledTableCell>
+              <StyledTableCell align="left">Years</StyledTableCell>
+              <StyledTableCell align="left"> </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>{experiences}</TableBody>
@@ -75,4 +75,4 @@ const Experience = ({ experience }) => {
   );
 };
 
-export default connect()(Experience);
+export default Experience;
