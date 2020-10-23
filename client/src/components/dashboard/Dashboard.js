@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getCurrentProfile } from "../../action/profile";
+import { loadUser } from "../../action/auth";
 import PropTypes from "prop-types";
 import Spinner from "../layout/Spinner";
 import AlertCom from "../layout/Alert";
@@ -33,14 +34,15 @@ const style = makeStyles((theme) => ({
 
 const Dashboard = ({
   getCurrentProfile,
+  loadUser,
   auth: { user },
   profile: { profile, loading },
 }) => {
   const classes = style();
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     getCurrentProfile();
-  }, getCurrentProfile);
+    loadUser();
+  }, []);
 
   const NoProfile = () => {
     return (
@@ -84,7 +86,7 @@ const Dashboard = ({
           Welcome {user && user.name}
         </Typography>
       </Box>
-      {profile !== null || profile !== undefined ? (
+      {profile !== null ? (
         <Box className={classes.boxContent}>
           <DashboardActions />
           <Experience experience={profile.experience} />
@@ -108,4 +110,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
 });
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, loadUser })(
+  Dashboard
+);
