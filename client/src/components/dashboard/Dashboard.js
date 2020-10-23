@@ -40,8 +40,8 @@ const Dashboard = ({
 }) => {
   const classes = style();
   useEffect(() => {
-    getCurrentProfile();
     loadUser();
+    getCurrentProfile();
   }, []);
 
   const NoProfile = () => {
