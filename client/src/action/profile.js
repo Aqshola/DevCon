@@ -1,6 +1,12 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-import { PROFILE_ERROR, GET_PROFILE, UPDATE_PROFILE } from "./types";
+import {
+  PROFILE_ERROR,
+  GET_PROFILE,
+  UPDATE_PROFILE,
+  CLEAR_PROFILE,
+  ACCOUNT_DELETED,
+} from "./types";
 
 //Get current users profile
 export const getCurrentProfile = () => async (dispatch) => {
@@ -142,4 +148,23 @@ export const deleteEducation = (id) => async (dispatch) => {
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
+};
+
+export const deleteAccount = (id) => async (dispatch) => {
+  if (window.confirm("Are you sure? this can Not be undone!"))
+    try {
+      const res = await axios.delete(`api/profile`);
+      dispatch({ type: CLEAR_PROFILE });
+      dispatch({ type: ACCOUNT_DELETED });
+      dispatch(setAlert("Your account has been permanently"));
+    } catch (err) {
+      const errors = err.response.data.errors;
+      if (errors) {
+        errors.forEach((error) => dispatch(setAlert(error.msg, "error")));
+      }
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      });
+    }
 };

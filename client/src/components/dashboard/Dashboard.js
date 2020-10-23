@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getCurrentProfile } from "../../action/profile";
+import { getCurrentProfile, deleteAccount } from "../../action/profile";
 import { loadUser } from "../../action/auth";
 import PropTypes from "prop-types";
 import Spinner from "../layout/Spinner";
@@ -30,11 +30,16 @@ const style = makeStyles((theme) => ({
     justifyContent: "space-between",
     marginBottom: "10px",
   },
+  btn: {
+    marginTop: "30px",
+    width: "fit-content",
+  },
 }));
 
 const Dashboard = ({
   getCurrentProfile,
   loadUser,
+  deleteAccount,
   auth: { user },
   profile: { profile, loading },
 }) => {
@@ -91,6 +96,15 @@ const Dashboard = ({
           <DashboardActions />
           <Experience experience={profile.experience} />
           <Education education={profile.education} />
+          <Button
+            className={classes.btn}
+            disableElevation
+            variant="contained"
+            color="secondary"
+            onClick={deleteAccount}
+          >
+            Delete My Account
+          </Button>
         </Box>
       ) : (
         <NoProfile />
@@ -110,6 +124,8 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
 });
-export default connect(mapStateToProps, { getCurrentProfile, loadUser })(
-  Dashboard
-);
+export default connect(mapStateToProps, {
+  getCurrentProfile,
+  loadUser,
+  deleteAccount,
+})(Dashboard);
