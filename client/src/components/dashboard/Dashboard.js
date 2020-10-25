@@ -58,7 +58,7 @@ const Dashboard = ({
         flexDirection="column"
         className={classes.txt}
       >
-        <Typography variant="p">
+        <Typography>
           You have not setup a profile, please add some info
         </Typography>
         <Button
