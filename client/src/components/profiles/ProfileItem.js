@@ -77,7 +77,7 @@ export const ProfileItem = ({
       <CardActions>
         <List>
           <ListItem>
-            <Button>View Profile</Button>
+            <Button color="primary">View Profile</Button>
           </ListItem>
         </List>
       </CardActions>
