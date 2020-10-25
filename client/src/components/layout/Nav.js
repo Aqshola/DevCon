@@ -147,7 +147,6 @@ const Nav = ({ auth: { isAuthenticated, loading }, logout }) => {
           </IconButton>
           <Button
             className={classes.button}
-            color="inherit"
             component={routeLink}
             to="/profiles"
             color="inherit"

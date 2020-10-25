@@ -6,6 +6,7 @@ import { removeAlert } from "../../action/alert";
 
 const AlertCom = ({ alerts, removeAlert }) => {
   const Warn = () => {
+    // eslint-disable-next-line
     if (alerts.value == 0) {
       return <div></div>;
     } else {

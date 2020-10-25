@@ -47,6 +47,7 @@ const Dashboard = ({
   useEffect(() => {
     loadUser();
     getCurrentProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const NoProfile = () => {

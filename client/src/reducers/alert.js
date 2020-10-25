@@ -14,10 +14,10 @@ export default (state = initialState, action) => {
       return { ...state };
     case REMOVE_ALERT:
       state.value = state.value.filter((alert) => alert.id !== payload);
+      // eslint-disable-next-line
       if (state.value.length == 0) {
         state.snack = false;
       }
-      console.log(state.value);
       return { ...state };
     default:
       return state;
