@@ -72,7 +72,7 @@ const Nav = ({ auth: { isAuthenticated, loading }, logout }) => {
         height="200px"
         width="150px"
       >
-        <Button color="inherit" fullWidth>
+        <Button component={routeLink} to="/profiles" color="inherit" fullWidth>
           Developer
         </Button>
         {!loading && (
@@ -145,7 +145,13 @@ const Nav = ({ auth: { isAuthenticated, loading }, logout }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Button className={classes.button} color="inherit">
+          <Button
+            className={classes.button}
+            color="inherit"
+            component={routeLink}
+            to="/profiles"
+            color="inherit"
+          >
             Developer
           </Button>
           {!loading && (
