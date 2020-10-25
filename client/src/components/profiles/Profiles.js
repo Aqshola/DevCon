@@ -5,6 +5,7 @@ import Spinner from "../layout/Spinner";
 import { getProfiles } from "../../action/profile";
 import { loadUser } from "../../action/auth";
 import { Box, Container, Typography } from "@material-ui/core";
+import { ProfileItem } from "./ProfileItem";
 
 const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
   useEffect(() => {
@@ -22,6 +23,15 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
               Developers
             </Typography>
             <Typography variant="subtitle1">Browse & Connect</Typography>
+          </Box>
+          <Box marginY="20px">
+            {profiles.length > 0 ? (
+              profiles.map((profile) => (
+                <ProfileItem key={profile._id} profile={profile} />
+              ))
+            ) : (
+              <Typography variant="subtitle1">No Profile</Typography>
+            )}
           </Box>
         </Box>
       )}
