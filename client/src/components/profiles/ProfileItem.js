@@ -17,6 +17,7 @@ import React from "react";
 import WorkIcon from "@material-ui/icons/Work";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import GamepadIcon from "@material-ui/icons/Gamepad";
+import { Link } from "react-router-dom";
 
 const style = makeStyles((theme) => ({
   card: {
@@ -77,7 +78,9 @@ export const ProfileItem = ({
       <CardActions>
         <List>
           <ListItem>
-            <Button color="primary">View Profile</Button>
+            <Button color="primary" component={Link} to={`/profile/${_id}`}>
+              View Profile
+            </Button>
           </ListItem>
         </List>
       </CardActions>
