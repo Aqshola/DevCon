@@ -24,7 +24,13 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
             </Typography>
             <Typography variant="subtitle1">Browse & Connect</Typography>
           </Box>
-          <Box marginY="20px">
+          <Box
+            marginY="20px"
+            display="flex"
+            width="90%"
+            justifyContent="space-between"
+            flexWrap="wrap"
+          >
             {profiles.length > 0 ? (
               profiles.map((profile) => (
                 <ProfileItem key={profile._id} profile={profile} />
