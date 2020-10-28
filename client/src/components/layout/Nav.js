@@ -116,6 +116,14 @@ const Nav = ({ auth: { isAuthenticated, loading }, logout }) => {
       <div className={divClass}>
         <Button
           component={routeLink}
+          to="/dashboard"
+          className={classes}
+          color="inherit"
+        >
+          Dashboard
+        </Button>
+        <Button
+          component={routeLink}
           to="/login"
           className={classes}
           color="inherit"
@@ -132,7 +140,11 @@ const Nav = ({ auth: { isAuthenticated, loading }, logout }) => {
       <AppBar position="static" color="transparent">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            <Link component={routeLink} to="/" underline="none">
+            <Link
+              component={routeLink}
+              to={isAuthenticated ? "/posts" : "/"}
+              underline="none"
+            >
               DevCon
             </Link>
           </Typography>
