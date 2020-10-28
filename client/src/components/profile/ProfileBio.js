@@ -17,7 +17,7 @@ export const ProfileBio = ({ bio }) => {
       {bio === null || bio === undefined || bio === " " ? (
         <></>
       ) : (
-        <Paper className={classes.paper} elevation={1}>
+        <Paper className={classes.paper} elevation={1} variant="outlined">
           <Typography variant="h6">Bio</Typography>
           <Typography variant="body1">{bio}</Typography>
         </Paper>

@@ -1,4 +1,4 @@
-import { Box, makeStyles, Paper, Typography } from "@material-ui/core";
+import { Box, Divider, makeStyles, Paper, Typography } from "@material-ui/core";
 import React from "react";
 import Moment from "react-moment";
 
@@ -21,18 +21,26 @@ export const ProfileExperience = ({ experience }) => {
         <Paper className={classes.paper} elevation={1}>
           <Typography variant="h6">Experience</Typography>
           {experience.map((exp) => (
-            <Box marginY="10px" key={exp._id}>
-              <Typography variant="subtitle1">{exp.title}</Typography>
-              <Typography variant="body2">{exp.company}</Typography>
-              <Typography variant="caption">
-                <Moment format="MMM YYYY">{exp.from}</Moment> -{" "}
-                {!exp.current ? (
-                  <Moment format="MMM YYYY">{exp.to}</Moment>
-                ) : (
-                  "Current"
-                )}
-              </Typography>
-            </Box>
+            <>
+              <Box marginY="10px" key={exp._id}>
+                <Typography variant="subtitle1" gutterBottom>
+                  <b>{exp.title}</b>
+                </Typography>
+                <Typography variant="body1" gutterBottom>
+                  {exp.company}
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  <Moment format="MMM YYYY">{exp.from}</Moment> -{" "}
+                  {!exp.current ? (
+                    <Moment format="MMM YYYY">{exp.to}</Moment>
+                  ) : (
+                    "Current"
+                  )}
+                </Typography>
+                <Typography variant="subtitle2">{exp.description}</Typography>
+              </Box>
+              <Divider />
+            </>
           ))}
         </Paper>
       )}
