@@ -11,6 +11,7 @@ import { ProfileSkill } from "./ProfileSkill";
 import { ProfileExperience } from "./ProfileExperience";
 import { ProfileEducation } from "./ProfileEducation";
 import { ProfileBio } from "./ProfileBio";
+import ProfileGithub from "./ProfileGithub";
 
 const style = makeStyles((theme) => ({
   split: {
@@ -64,6 +65,7 @@ const Profile = ({
             <ProfileExperience experience={profile.experience} />
             <ProfileEducation education={profile.education} />
             <ProfileSkill skills={profile.skills} />
+            <ProfileGithub username={profile.githubusername} />
           </>
         )}
       </Box>
