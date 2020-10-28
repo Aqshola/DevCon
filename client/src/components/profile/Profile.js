@@ -7,6 +7,11 @@ import { useEffect } from "react";
 import { Box, Button, Container, makeStyles } from "@material-ui/core";
 import { ProfileTop } from "./ProfileTop";
 import { Link } from "react-router-dom";
+import { ProfileSkill } from "./ProfileSkill";
+import { ProfileExperience } from "./ProfileExperience";
+import { ProfileEducation } from "./ProfileEducation";
+import { ProfileBio } from "./ProfileBio";
+import ProfileGithub from "./ProfileGithub";
 
 const style = makeStyles((theme) => ({
   split: {
@@ -56,6 +61,11 @@ const Profile = ({
                 )}
             </Box>
             <ProfileTop profile={profile} />
+            <ProfileBio bio={profile.bio} />
+            <ProfileExperience experience={profile.experience} />
+            <ProfileEducation education={profile.education} />
+            <ProfileSkill skills={profile.skills} />
+            <ProfileGithub username={profile.githubusername} />
           </>
         )}
       </Box>
