@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import Moment from "react-moment";
+
 import LanguageIcon from "@material-ui/icons/Language";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import FacebookIcon from "@material-ui/icons/Facebook";
@@ -130,13 +131,83 @@ export const ProfileTop = ({
           <Paper className={classes.paper} elevation={1}>
             <Typography variant="h6">Skills</Typography>
             <Box marginY="10px" className={classes.skillset}>
-              {skills.map((skill) => (
-                <Chip label={skill} color="primary" />
+              {skills.map((i, skill) => (
+                <Chip label={skill} color="primary" key={i} />
               ))}
             </Box>
           </Paper>
         )}
       </>
+    );
+  };
+  const Socials = () => {
+    return (
+      <Box display="flex">
+        {website && website !== " " && (
+          <IconButton
+            component={Links}
+            href={
+              website.includes("https://") || website.includes("http://")
+                ? website
+                : `https://${website}`
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <LanguageIcon />
+          </IconButton>
+        )}
+        {social && social.twitter && social.twitter !== " " && (
+          <IconButton>
+            <TwitterIcon
+              component={Links}
+              href={`${social.twitter}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            />
+          </IconButton>
+        )}
+        {social && social.facebook && social.facebook !== " " && (
+          <IconButton
+            component={Links}
+            href={`${social.facebook}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FacebookIcon />
+          </IconButton>
+        )}
+        {social && social.youtube && social.youtube !== " " && (
+          <IconButton
+            component={Links}
+            href={`${social.youtube}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <YouTubeIcon />
+          </IconButton>
+        )}
+        {social && social.instagram && social.instagram !== " " && (
+          <IconButton
+            component={Links}
+            href={`${social.instagram}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <InstagramIcon />
+          </IconButton>
+        )}
+        {social && social.linkedin && social.linkedin !== " " && (
+          <IconButton
+            component={Links}
+            href={`${social.linkedin}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <LinkedInIcon />
+          </IconButton>
+        )}
+      </Box>
     );
   };
 
@@ -147,7 +218,6 @@ export const ProfileTop = ({
       flexDirection="column"
       justifyContent="space-between"
       padding="20px"
-      elevation={true}
     >
       <Paper className={classes.paper} elevation={1}>
         <Avatar className={classes.large} src={avatar} />
@@ -155,78 +225,7 @@ export const ProfileTop = ({
           <Typography variant="h6">{name}</Typography>
           <Typography variant="subtitle1">{`${status} at ${company}`}</Typography>
           <Typography variant="body2">{location}</Typography>
-          <Box display="flex">
-            {website && website !== " " && (
-              <IconButton
-                component={Links}
-                href={
-                  website.includes("https://") || website.includes("http://")
-                    ? website
-                    : `https://${website}`
-                }
-                target="_blank"
-                rel="noopener"
-                rel="noreferrer"
-              >
-                <LanguageIcon />
-              </IconButton>
-            )}
-            {social && social.twitter && social.twitter !== " " && (
-              <IconButton>
-                <TwitterIcon
-                  component={Links}
-                  href={`${social.twitter}`}
-                  target="_blank"
-                  rel="noopener"
-                  rel="noreferrer"
-                />
-              </IconButton>
-            )}
-            {social && social.facebook && social.facebook !== " " && (
-              <IconButton
-                component={Links}
-                href={`${social.facebook}`}
-                target="_blank"
-                rel="noopener"
-                rel="noreferrer"
-              >
-                <FacebookIcon />
-              </IconButton>
-            )}
-            {social && social.youtube && social.youtube !== " " && (
-              <IconButton
-                component={Links}
-                href={`${social.youtube}`}
-                target="_blank"
-                rel="noopener"
-                rel="noreferrer"
-              >
-                <YouTubeIcon />
-              </IconButton>
-            )}
-            {social && social.instagram && social.instagram !== " " && (
-              <IconButton
-                component={Links}
-                href={`${social.instagram}`}
-                target="_blank"
-                rel="noopener"
-                rel="noreferrer"
-              >
-                <InstagramIcon />
-              </IconButton>
-            )}
-            {social && social.linkedin && social.linkedin !== " " && (
-              <IconButton
-                component={Links}
-                href={`${social.linkedin}`}
-                target="_blank"
-                rel="noopener"
-                rel="noreferrer"
-              >
-                <LinkedInIcon />
-              </IconButton>
-            )}
-          </Box>
+          <Socials />
         </Box>
       </Paper>
       <Bio />
