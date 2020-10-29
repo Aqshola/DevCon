@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { getPosts } from "../../action/post";
 import Spinner from "../layout/Spinner";
 import { Box, Container, Typography, makeStyles } from "@material-ui/core";
-import { PostItem } from "./PostItem";
+import PostItem from "./PostItem";
 
 const style = makeStyles((theme) => ({
   boxContent: {
