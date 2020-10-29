@@ -31,10 +31,8 @@ router.post(
       const post = await newPost.save();
 
       res.json(post);
-      res.send("post routes");
     } catch (err) {
-      console.error(err.message);
-      res.status(500).send("server error");
+      return res.status(500).send("server error");
     }
   }
 );

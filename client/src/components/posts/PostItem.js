@@ -27,6 +27,7 @@ const style = makeStyles((theme) => ({
   },
   card: {
     width: "100%",
+    marginBottom: "10px",
   },
   cardActions: {
     display: "flex",
