@@ -1,18 +1,13 @@
 import {
   Avatar,
   Box,
-  IconButton,
   makeStyles,
-  Paper,
   Typography,
-  Link as Links,
   Card,
   CardHeader,
   CardContent,
   CardActions,
   Button,
-  CardActionArea,
-  Divider,
 } from "@material-ui/core";
 import React from "react";
 import Moment from "react-moment";
@@ -39,6 +34,7 @@ const style = makeStyles((theme) => ({
   },
   cardLike: {
     flexGrow: 1,
+    marginLeft: "5px",
   },
   cardActions: {
     display: "flex",
@@ -48,7 +44,8 @@ const style = makeStyles((theme) => ({
   detail: {
     display: "flex",
     justifyContent: "space-between",
-    width: "85%",
+    width: "90%",
+    opacity: "80%",
   },
   actionBtn: {
     margin: theme.spacing(1),
@@ -63,6 +60,7 @@ const PostItem = ({
 }) => {
   const classes = style();
 
+  console.log(text.length);
   return (
     <Card className={classes.card}>
       <CardHeader
@@ -71,21 +69,26 @@ const PostItem = ({
         subheader={<Moment fromNow>{date}</Moment>}
       />
       <CardContent>
-        <Typography variant="body2">{text}</Typography>
+        <Typography
+          variant={text.length > 100 ? "body2" : "h6"}
+          style={{ fontWeight: 400 }}
+        >
+          {text}
+        </Typography>
       </CardContent>
 
-      <CardActions className={classes.cardDetail}></CardActions>
       <CardActions className={classes.cardDetail}>
         <Box className={classes.detail} marginBottom="5px">
           {likes.length > 0 && (
             <Box display="flex" alignItems="center">
               <ThumbUpAltIcon fontSize="small" />
-              <Typography
-                variant="body1"
-                style={{ marginLeft: "5px" }}
-                className={classes.cardLike}
-              >
-                {`${likes.length} like`}
+              <Typography variant="caption" className={classes.cardLike}>
+                {auth.user !== null &&
+                likes.some((like) => like.user === auth.user._id)
+                  ? likes.length === 1
+                    ? `${auth.user.name}`
+                    : ` You and ${likes.length - 1} Others`
+                  : `${likes.length}`}
               </Typography>
             </Box>
           )}
