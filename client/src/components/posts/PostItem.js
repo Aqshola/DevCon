@@ -8,6 +8,11 @@ import {
   CardContent,
   CardActions,
   Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Popover,
+  Paper,
 } from "@material-ui/core";
 import React from "react";
 import Moment from "react-moment";
@@ -18,6 +23,7 @@ import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ChatBubbleOutlineOutlinedIcon from "@material-ui/icons/ChatBubbleOutlineOutlined";
 import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 
 const style = makeStyles((theme) => ({
   large: {
@@ -51,6 +57,9 @@ const style = makeStyles((theme) => ({
     margin: theme.spacing(1),
     width: "30%",
   },
+  menu: {
+    marginRight: theme.spacing(2),
+  },
 }));
 
 const PostItem = ({
@@ -59,71 +68,107 @@ const PostItem = ({
   auth,
 }) => {
   const classes = style();
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  console.log(text.length);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
-    <Card className={classes.card}>
-      <CardHeader
-        avatar={<Avatar src={avatar} />}
-        title={name}
-        subheader={<Moment fromNow>{date}</Moment>}
-      />
-      <CardContent>
-        <Typography
-          variant={text.length > 100 ? "body2" : "h6"}
-          style={{ fontWeight: 400 }}
+    <>
+      <Card className={classes.card}>
+        <CardHeader
+          avatar={<Avatar src={avatar} />}
+          title={name}
+          subheader={<Moment fromNow>{date}</Moment>}
+          action={
+            <IconButton onClick={handleClick}>
+              <MoreHorizIcon />
+            </IconButton>
+          }
+        />
+        <CardContent>
+          <Typography
+            variant={text.length > 100 ? "body2" : "h6"}
+            style={{ fontWeight: 400 }}
+          >
+            {text}
+          </Typography>
+        </CardContent>
+
+        <CardActions className={classes.cardDetail}>
+          <Box className={classes.detail} marginBottom="5px">
+            {likes.length > 0 && (
+              <Box display="flex" alignItems="center">
+                <ThumbUpAltIcon fontSize="small" />
+                <Typography variant="caption" className={classes.cardLike}>
+                  {auth.user !== null &&
+                  likes.some((like) => like.user === auth.user._id)
+                    ? likes.length === 1
+                      ? `${auth.user.name}`
+                      : ` You and ${likes.length - 1} Others`
+                    : `${likes.length}`}
+                </Typography>
+              </Box>
+            )}
+          </Box>
+
+          <Box className={classes.cardActions} borderTop="0.1px solid grey">
+            <Button
+              className={classes.actionBtn}
+              startIcon={
+                auth.user !== null &&
+                likes.some((like) => like.user === auth.user._id) ? (
+                  <ThumbUpAltIcon color="primary" />
+                ) : (
+                  <ThumbUpAltOutlinedIcon />
+                )
+              }
+              onClick={() => like(_id)}
+            >
+              Like
+            </Button>
+            <Button
+              className={classes.actionBtn}
+              startIcon={<ChatBubbleOutlineOutlinedIcon />}
+            >
+              Comment
+            </Button>
+            <Button
+              className={classes.actionBtn}
+              startIcon={<ShareOutlinedIcon />}
+            >
+              Share
+            </Button>
+          </Box>
+        </CardActions>
+      </Card>
+      <div>
+        <Popover
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          transformOrigin={{
+            vertical: "center",
+            horizontal: "center",
+          }}
+          elevation={1}
+          PaperProps={{
+            variant: "outlined",
+          }}
         >
-          {text}
-        </Typography>
-      </CardContent>
-
-      <CardActions className={classes.cardDetail}>
-        <Box className={classes.detail} marginBottom="5px">
-          {likes.length > 0 && (
-            <Box display="flex" alignItems="center">
-              <ThumbUpAltIcon fontSize="small" />
-              <Typography variant="caption" className={classes.cardLike}>
-                {auth.user !== null &&
-                likes.some((like) => like.user === auth.user._id)
-                  ? likes.length === 1
-                    ? `${auth.user.name}`
-                    : ` You and ${likes.length - 1} Others`
-                  : `${likes.length}`}
-              </Typography>
-            </Box>
-          )}
-        </Box>
-
-        <Box className={classes.cardActions} borderTop="0.1px solid grey">
-          <Button
-            className={classes.actionBtn}
-            startIcon={
-              auth.user !== null &&
-              likes.some((like) => like.user === auth.user._id) ? (
-                <ThumbUpAltIcon color="primary" />
-              ) : (
-                <ThumbUpAltOutlinedIcon />
-              )
-            }
-            onClick={() => like(_id)}
-          >
-            Like
-          </Button>
-          <Button
-            className={classes.actionBtn}
-            startIcon={<ChatBubbleOutlineOutlinedIcon />}
-          >
-            Comment
-          </Button>
-          <Button
-            className={classes.actionBtn}
-            startIcon={<ShareOutlinedIcon />}
-          >
-            Share
-          </Button>
-        </Box>
-      </CardActions>
-    </Card>
+          <MenuItem onClick={handleClose}>Delete Post</MenuItem>
+        </Popover>
+      </div>
+    </>
   );
 };
 
