@@ -11,6 +11,7 @@ import {
   IconButton,
   MenuItem,
   Popover,
+  Link,
 } from "@material-ui/core";
 import React from "react";
 import Moment from "react-moment";
@@ -60,6 +61,11 @@ const style = makeStyles((theme) => ({
   menu: {
     marginRight: theme.spacing(2),
   },
+  title: {
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
 }));
 
 const PostItem = ({
@@ -84,7 +90,17 @@ const PostItem = ({
       <Card className={classes.card}>
         <CardHeader
           avatar={<Avatar src={avatar} />}
-          title={name}
+          title={
+            <Link
+              variant="inherit"
+              underline="hover"
+              color="initial"
+              href={`profile/${user}`}
+            >
+              {name}
+            </Link>
+          }
+          classes={{ title: classes.title }}
           subheader={<Moment fromNow>{date}</Moment>}
           action={
             auth.user !== null && auth.user._id === user ? (

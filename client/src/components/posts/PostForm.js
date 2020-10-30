@@ -124,6 +124,7 @@ const PostForm = ({ auth, addPost }) => {
             } ?`}
             InputProps={{ disableUnderline: true }}
             onChange={(e) => setText(e.target.value)}
+            autoFocus
           />
         </DialogContent>
         <DialogActions>
