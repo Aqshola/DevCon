@@ -16,8 +16,10 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import Moment from "react-moment";
-import { like } from "../../action/post";
+import { like, deletePost } from "../../action/post";
 import { connect } from "react-redux";
+
+import AlertCom from "../layout/Alert";
 
 import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
@@ -65,6 +67,7 @@ const style = makeStyles((theme) => ({
 const PostItem = ({
   post: { _id, avatar, name, text, date, likes, user },
   like,
+  deletePost,
   auth,
 }) => {
   const classes = style();
@@ -169,9 +172,17 @@ const PostItem = ({
             variant: "outlined",
           }}
         >
-          <MenuItem onClick={handleClose}>Delete Post</MenuItem>
+          <MenuItem
+            onClick={(e) => {
+              handleClose();
+              deletePost(_id);
+            }}
+          >
+            Delete Post
+          </MenuItem>
         </Popover>
       </div>
+      <AlertCom />
     </>
   );
 };
@@ -180,4 +191,4 @@ const mapStateToProp = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProp, { like })(PostItem);
+export default connect(mapStateToProp, { like, deletePost })(PostItem);
