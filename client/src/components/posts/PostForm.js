@@ -129,7 +129,6 @@ const PostForm = ({ auth, addPost }) => {
         <DialogActions>
           <Button
             fullWidth
-            onClick={handleClose}
             variant="contained"
             color="primary"
             style={{ textTransform: "none" }}

@@ -1,6 +1,4 @@
 import {
-  Box,
-  Divider,
   Link,
   List,
   ListItemText,
@@ -10,7 +8,6 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { useEffect } from "react";
-import Moment from "react-moment";
 import { connect } from "react-redux";
 import { getGithubRepos } from "../../action/profile";
 
@@ -27,7 +24,7 @@ const ProfileGithub = ({ username, repos, getGithubRepos }) => {
   const classes = style();
   useEffect(() => {
     getGithubRepos(username);
-  }, [getGithubRepos]);
+  }, [getGithubRepos, username]);
   return (
     <>
       {username && repos.length > 0 && (
