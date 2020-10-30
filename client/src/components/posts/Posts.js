@@ -5,11 +5,12 @@ import { getPosts } from "../../action/post";
 import Spinner from "../layout/Spinner";
 import { Box, Container, Typography, makeStyles } from "@material-ui/core";
 import PostItem from "./PostItem";
+import PostForm from "./PostForm";
 
 const style = makeStyles((theme) => ({
   boxContent: {
-    width: "50%",
-    [theme.breakpoints.down("xs")]: {
+    width: "40%",
+    [theme.breakpoints.down("sm")]: {
       width: "100%",
     },
   },
@@ -35,6 +36,7 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
           marginY="20px"
           className={classes.boxContent}
         >
+          <PostForm />
           {posts.map((post) => (
             <PostItem post={post} key={post._id} />
           ))}
