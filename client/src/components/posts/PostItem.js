@@ -63,7 +63,7 @@ const style = makeStyles((theme) => ({
 }));
 
 const PostItem = ({
-  post: { _id, avatar, name, text, date, likes },
+  post: { _id, avatar, name, text, date, likes, user },
   like,
   auth,
 }) => {
@@ -86,9 +86,13 @@ const PostItem = ({
           title={name}
           subheader={<Moment fromNow>{date}</Moment>}
           action={
-            <IconButton onClick={handleClick}>
-              <MoreHorizIcon />
-            </IconButton>
+            auth.user !== null && auth.user._id === user ? (
+              <IconButton onClick={handleClick}>
+                <MoreHorizIcon />
+              </IconButton>
+            ) : (
+              <></>
+            )
           }
         />
         <CardContent>
