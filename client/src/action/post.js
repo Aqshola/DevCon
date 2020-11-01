@@ -7,6 +7,7 @@ import {
   ADD_POST,
   ADD_COMMENT,
   REMOVE_COMMENT,
+  GET_POST,
 } from "./types";
 import { setAlert } from "./alert";
 
