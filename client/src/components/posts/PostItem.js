@@ -12,6 +12,7 @@ import {
   MenuItem,
   Popover,
   Link,
+  TextField,
 } from "@material-ui/core";
 import React from "react";
 import Moment from "react-moment";
@@ -25,6 +26,7 @@ import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ChatBubbleOutlineOutlinedIcon from "@material-ui/icons/ChatBubbleOutlineOutlined";
 import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import SendIcon from "@material-ui/icons/Send";
 
 const style = makeStyles((theme) => ({
   large: {
@@ -65,6 +67,23 @@ const style = makeStyles((theme) => ({
     "&:hover": {
       cursor: "pointer",
     },
+  },
+  comment: {
+    marginLeft: "10px",
+    width: "fit-content",
+    maxWidth: "70%",
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: "rgba(0, 0, 0, 0.05)",
+    padding: "10px",
+    borderRadius: "10px",
+  },
+
+  inputCom: {
+    width: "70%",
+    backgroundColor: "rgba(0, 0, 0, 0.1)",
+    padding: "10px",
+    borderRadius: "30px",
   },
 }));
 
@@ -138,7 +157,11 @@ const PostItem = ({
             )}
           </Box>
 
-          <Box className={classes.cardActions} borderTop="0.1px solid grey">
+          <Box
+            className={classes.cardActions}
+            borderTop="0.1px solid grey"
+            borderBottom="0.1px solid grey"
+          >
             <Button
               className={classes.actionBtn}
               startIcon={
@@ -167,6 +190,52 @@ const PostItem = ({
             </Button>
           </Box>
         </CardActions>
+
+        <CardContent>
+          <Box>
+            <Box display="flex" marginBottom="10px">
+              <Avatar src={avatar} />
+              <Box className={classes.comment}>
+                <Typography variant="subtitle2">{name}</Typography>
+                <Typography variant="caption">Manteb bg</Typography>
+              </Box>
+            </Box>
+            <Box display="flex">
+              <Avatar src={avatar} />
+              <Box className={classes.comment}>
+                <Typography variant="subtitle2">{name}</Typography>
+                <Typography variant="caption">
+                  TESTTTTTTTTTTTTTTTTTTTTTTTTT
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+          <Box display="flex" marginTop="30px">
+            <Box display="flex" alignItems="top" height="100%">
+              <Avatar src={avatar} />
+            </Box>
+            <Box
+              id="boxinput"
+              className={classes.inputCom}
+              marginLeft="10px"
+              display="flex"
+              alignItems="center"
+            >
+              <TextField
+                multiline
+                placeholder="Write a comment..."
+                InputProps={{ disableUnderline: true }}
+                size="small"
+                fullWidth
+              />
+            </Box>
+            <Box alignSelf="bottom" height="100%">
+              <IconButton>
+                <SendIcon />
+              </IconButton>
+            </Box>
+          </Box>
+        </CardContent>
       </Card>
       <div>
         <Popover
