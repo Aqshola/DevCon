@@ -56,6 +56,13 @@ export default function (state = initialState, action) {
           post._id === payload.id ? { ...post, comments: payload.data } : post
         ),
       };
+    case REMOVE_COMMENT:
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post._id === payload.id ? { ...post, comments: payload.data } : post
+        ),
+      };
     default:
       return state;
   }

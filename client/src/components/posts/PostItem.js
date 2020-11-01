@@ -16,7 +16,7 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import Moment from "react-moment";
-import { like, deletePost, addComment } from "../../action/post";
+import { like, deletePost, addComment, deleteComment } from "../../action/post";
 import { connect } from "react-redux";
 
 import AlertCom from "../layout/Alert";
@@ -93,10 +93,13 @@ const PostItem = ({
   deletePost,
   auth,
   addComment,
+  deleteComment,
 }) => {
   const classes = style();
   const [anchorEl, setAnchorEl] = useState(null);
   const [commentText, setCommentText] = useState("");
+  const [field, setfield] = useState("");
+  const [commentId, setcommentId] = useState();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -125,7 +128,12 @@ const PostItem = ({
           subheader={<Moment fromNow>{date}</Moment>}
           action={
             auth.user !== null && auth.user._id === user ? (
-              <IconButton onClick={handleClick}>
+              <IconButton
+                onClick={(event) => {
+                  handleClick(event);
+                  setfield("post");
+                }}
+              >
                 <MoreHorizIcon />
               </IconButton>
             ) : (
@@ -197,12 +205,26 @@ const PostItem = ({
           {comments.length > 0 ? (
             <Box marginBottom="30px">
               {comments.map((comment) => (
-                <Box display="flex" marginBottom="10px">
-                  <Avatar src={comment.avatar} />
+                <Box display="flex" marginBottom="10px" key={comment._id}>
+                  <Avatar size="small" src={comment.avatar} />
                   <Box className={classes.comment}>
                     <Typography variant="subtitle2">{comment.name}</Typography>
                     <Typography variant="caption">{comment.text}</Typography>
                   </Box>
+                  {auth.user !== null && auth.user._id === comment.user ? (
+                    <IconButton
+                      onClick={(event) => {
+                        handleClick(event);
+                        setfield("comment");
+                        setcommentId(comment._id);
+                      }}
+                      size="small"
+                    >
+                      <MoreHorizIcon />
+                    </IconButton>
+                  ) : (
+                    <></>
+                  )}
                 </Box>
               ))}
             </Box>
@@ -266,10 +288,10 @@ const PostItem = ({
           <MenuItem
             onClick={(e) => {
               handleClose();
-              deletePost(_id);
+              field == "post" ? deletePost(_id) : deleteComment(_id, commentId);
             }}
           >
-            Delete Post
+            Delete
           </MenuItem>
         </Popover>
       </div>
@@ -282,6 +304,9 @@ const mapStateToProp = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProp, { like, deletePost, addComment })(
-  PostItem
-);
+export default connect(mapStateToProp, {
+  like,
+  deletePost,
+  addComment,
+  deleteComment,
+})(PostItem);
