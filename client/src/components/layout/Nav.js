@@ -14,6 +14,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { Link as routeLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../../action/auth";
+import { getPosts } from "../../action/post";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Nav = ({ auth: { isAuthenticated, loading }, logout }) => {
+const Nav = ({ auth: { isAuthenticated, loading }, logout, getPosts }) => {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -144,6 +145,7 @@ const Nav = ({ auth: { isAuthenticated, loading }, logout }) => {
               component={routeLink}
               to={isAuthenticated ? "/posts" : "/"}
               underline="none"
+              onClick={isAuthenticated ? () => getPosts() : () => {}}
             >
               DevCon
             </Link>
@@ -192,4 +194,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { logout })(Nav);
+export default connect(mapStateToProps, { logout, getPosts })(Nav);
