@@ -15,6 +15,7 @@ import { Link as routeLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../../action/auth";
 import { getPosts } from "../../action/post";
+import { setAlert } from "../../action/alert";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -138,14 +139,21 @@ const Nav = ({ auth: { isAuthenticated, loading }, logout, getPosts }) => {
 
   return (
     <>
-      <AppBar position="static" color="transparent">
+      <AppBar position="sticky" color="inherit">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             <Link
               component={routeLink}
               to={isAuthenticated ? "/posts" : "/"}
               underline="none"
-              onClick={isAuthenticated ? () => getPosts() : () => {}}
+              onClick={
+                isAuthenticated
+                  ? () => {
+                      getPosts();
+                      document.documentElement.scrollTop = 0;
+                    }
+                  : () => {}
+              }
             >
               DevCon
             </Link>
