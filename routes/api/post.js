@@ -129,7 +129,7 @@ router.put("/like/:id", auth, async (req, res) => {
 // @access  Private
 router.post(
   "/comment/:id",
-  [auth, [check("text", "Text is required").not().isEmpty()]],
+  [auth, [check("commentText", "Text is required").not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -140,7 +140,7 @@ router.post(
       const post = await Post.findById(req.params.id);
 
       const newComment = {
-        text: req.body.text,
+        text: req.body.commentText,
         name: user.name,
         avatar: user.avatar,
         user: req.user.id,
@@ -150,7 +150,6 @@ router.post(
       await post.save();
 
       res.json(post.comments);
-      res.send("post routes");
     } catch (err) {
       console.error(err.message);
       res.status(500).send("server error");

@@ -14,9 +14,9 @@ import {
   Link,
   TextField,
 } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import Moment from "react-moment";
-import { like, deletePost } from "../../action/post";
+import { like, deletePost, addComment } from "../../action/post";
 import { connect } from "react-redux";
 
 import AlertCom from "../layout/Alert";
@@ -92,9 +92,11 @@ const PostItem = ({
   like,
   deletePost,
   auth,
+  addComment,
 }) => {
   const classes = style();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [commentText, setCommentText] = useState("");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -212,7 +214,7 @@ const PostItem = ({
           </Box>
           <Box display="flex" marginTop="30px">
             <Box display="flex" alignItems="top" height="100%">
-              <Avatar src={auth.user !== null && auth.user.avatar} />
+              <Avatar src={auth.user !== null ? auth.user.avatar : ""} />
             </Box>
             <Box
               id="boxinput"
@@ -227,10 +229,18 @@ const PostItem = ({
                 InputProps={{ disableUnderline: true }}
                 size="small"
                 fullWidth
+                onChange={(e) => setCommentText(e.target.value)}
+                value={commentText}
               />
             </Box>
             <Box alignSelf="bottom" height="100%">
-              <IconButton>
+              <IconButton
+                onClick={(e) => {
+                  e.preventDefault();
+                  addComment(_id, { commentText });
+                  setCommentText("");
+                }}
+              >
                 <SendIcon />
               </IconButton>
             </Box>
@@ -274,4 +284,6 @@ const mapStateToProp = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProp, { like, deletePost })(PostItem);
+export default connect(mapStateToProp, { like, deletePost, addComment })(
+  PostItem
+);
