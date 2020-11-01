@@ -212,7 +212,7 @@ const PostItem = ({
           </Box>
           <Box display="flex" marginTop="30px">
             <Box display="flex" alignItems="top" height="100%">
-              <Avatar src={avatar} />
+              <Avatar src={auth.user !== null && auth.user.avatar} />
             </Box>
             <Box
               id="boxinput"
