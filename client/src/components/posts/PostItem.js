@@ -88,7 +88,7 @@ const style = makeStyles((theme) => ({
 }));
 
 const PostItem = ({
-  post: { _id, avatar, name, text, date, likes, user },
+  post: { _id, avatar, name, text, date, likes, user, comments },
   like,
   deletePost,
   auth,
@@ -194,25 +194,23 @@ const PostItem = ({
         </CardActions>
 
         <CardContent>
-          <Box>
-            <Box display="flex" marginBottom="10px">
-              <Avatar src={avatar} />
-              <Box className={classes.comment}>
-                <Typography variant="subtitle2">{name}</Typography>
-                <Typography variant="caption">Manteb bg</Typography>
-              </Box>
+          {comments.length > 0 ? (
+            <Box marginBottom="30px">
+              {comments.map((comment) => (
+                <Box display="flex" marginBottom="10px">
+                  <Avatar src={comment.avatar} />
+                  <Box className={classes.comment}>
+                    <Typography variant="subtitle2">{comment.name}</Typography>
+                    <Typography variant="caption">{comment.text}</Typography>
+                  </Box>
+                </Box>
+              ))}
             </Box>
-            <Box display="flex">
-              <Avatar src={avatar} />
-              <Box className={classes.comment}>
-                <Typography variant="subtitle2">{name}</Typography>
-                <Typography variant="caption">
-                  TESTTTTTTTTTTTTTTTTTTTTTTTTT
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-          <Box display="flex" marginTop="30px">
+          ) : (
+            <></>
+          )}
+
+          <Box display="flex">
             <Box display="flex" alignItems="top" height="100%">
               <Avatar src={auth.user !== null ? auth.user.avatar : ""} />
             </Box>
