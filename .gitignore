@@ -16,6 +16,8 @@
 /build
 
 # misc
+/default.json
+/config/default.json
 .DS_Store
 .env.local
 .env.development.local
