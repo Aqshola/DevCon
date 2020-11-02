@@ -1,3 +1,11 @@
+import React, { useState } from "react";
+import { setAlert } from "../../action/alert";
+import { login } from "../../action/auth";
+import { connect } from "react-redux";
+import { Link as RouterLink, Redirect } from "react-router-dom";
+import AlertCom from "../layout/Alert";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import { Visibility } from "@material-ui/icons";
 import {
   Container,
   FormControl,
@@ -8,13 +16,10 @@ import {
   Paper,
   Button,
   Link,
+  InputAdornment,
+  IconButton,
 } from "@material-ui/core";
-import { setAlert } from "../../action/alert";
-import { login } from "../../action/auth";
-import { connect } from "react-redux";
-import React, { useState } from "react";
-import { Link as RouterLink, Redirect } from "react-router-dom";
-import AlertCom from "../layout/Alert";
+
 const height = window.innerHeight;
 const style = makeStyles((theme) => ({
   container: {
@@ -59,6 +64,8 @@ const Login = ({ isAuthenticated, login, setAlert }) => {
     email: "",
     password: "",
   });
+  const [show, setshow] = useState(false);
+
   const onChange = (e) => {
     setdata({ ...data, [e.target.name]: e.target.value });
   };
@@ -89,8 +96,17 @@ const Login = ({ isAuthenticated, login, setAlert }) => {
             name="password"
             variant="outlined"
             label="password"
-            type="password"
+            type={show ? "text" : "password"}
             onChange={onChange}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setshow(!show)}>
+                    {show ? <Visibility /> : <VisibilityOffIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </FormControl>
         <Box className={classes.btnGrp}>
