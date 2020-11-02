@@ -9,17 +9,18 @@ const style = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    [theme.breakpoints.down("xs")]: {
-      height: height - 200,
-    },
+    height: height - 300,
+  },
+  load: {
+    position: "absolute",
   },
 }));
 
-const Spinner = ({ ...rest }) => {
+const Spinner = () => {
   const classes = style();
   return (
     <Container className={classes.container}>
-      <CircularProgress {...rest} disableShrink />;
+      <CircularProgress className={classes.load} disableShrink />;
     </Container>
   );
 };

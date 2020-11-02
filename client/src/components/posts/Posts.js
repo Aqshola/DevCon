@@ -25,6 +25,16 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
 
   return (
     <Container>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        flexWrap="wrap"
+        margin="auto"
+        marginY="20px"
+        className={classes.boxContent}
+      >
+        <PostForm />
+      </Box>
       {loading ? (
         <Spinner />
       ) : posts.length > 0 ? (
@@ -36,13 +46,19 @@ const Posts = ({ getPosts, post: { posts, loading } }) => {
           marginY="20px"
           className={classes.boxContent}
         >
-          <PostForm />
           {posts.map((post) => (
             <PostItem post={post} key={post._id} />
           ))}
         </Box>
       ) : (
-        <Typography>No Posts</Typography>
+        <Box
+          height="200px"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Typography>let's fill the timeline</Typography>
+        </Box>
       )}
     </Container>
   );
