@@ -6,7 +6,7 @@ import { getProfileById } from "../../action/profile";
 import { useEffect } from "react";
 import { Box, Button, Container, makeStyles } from "@material-ui/core";
 import { ProfileTop } from "./ProfileTop";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { ProfileSkill } from "./ProfileSkill";
 import { ProfileExperience } from "./ProfileExperience";
 import { ProfileEducation } from "./ProfileEducation";
@@ -29,14 +29,18 @@ const style = makeStyles((theme) => ({
 const Profile = ({
   match,
   getProfileById,
-  profile: { profile, loading },
+  profile: { profile, loading, error },
   auth,
 }) => {
   const classes = style();
   useEffect(() => {
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
+  if (error.status == 400) {
+    return <Redirect to="/profile" />;
+  }
 
+  console.log(error);
   return (
     <Container>
       <Box className={classes.boxContent}>
