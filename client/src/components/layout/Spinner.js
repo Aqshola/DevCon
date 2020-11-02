@@ -1,11 +1,10 @@
 import React from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { Box, Container, Typography, makeStyles } from "@material-ui/core";
+import { Container, makeStyles } from "@material-ui/core";
 
 const height = window.innerHeight;
 const style = makeStyles((theme) => ({
   container: {
-    height: height,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

@@ -15,7 +15,6 @@ import { Link as routeLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../../action/auth";
 import { getPosts } from "../../action/post";
-import { setAlert } from "../../action/alert";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,

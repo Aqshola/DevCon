@@ -36,7 +36,7 @@ const Profile = ({
   useEffect(() => {
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
-  if (error.status == 400) {
+  if (error.status === 400) {
     return <Redirect to="/profile" />;
   }
 

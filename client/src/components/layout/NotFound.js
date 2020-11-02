@@ -1,4 +1,4 @@
-import { Box, Container, Typography, makeStyles } from "@material-ui/core";
+import { Box, Container, makeStyles } from "@material-ui/core";
 import React from "react";
 
 const height = window.innerHeight;
@@ -28,7 +28,11 @@ const NotFound = () => {
   return (
     <Container className={classes.container}>
       <Box className={classes.box}>
-        <img className={classes.img} src={require("./img/notFound.svg")} />
+        <img
+          alt="not found"
+          className={classes.img}
+          src={require("./img/notFound.svg")}
+        />
       </Box>
     </Container>
   );

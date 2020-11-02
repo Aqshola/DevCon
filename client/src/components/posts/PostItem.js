@@ -288,7 +288,9 @@ const PostItem = ({
           <MenuItem
             onClick={(e) => {
               handleClose();
-              field == "post" ? deletePost(_id) : deleteComment(_id, commentId);
+              field === "post"
+                ? deletePost(_id)
+                : deleteComment(_id, commentId);
             }}
           >
             Delete
