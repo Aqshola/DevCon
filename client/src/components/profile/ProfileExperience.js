@@ -31,7 +31,7 @@ export const ProfileExperience = ({ experience }) => {
                 </Typography>
                 <Typography variant="body2" gutterBottom>
                   <Moment format="MMM YYYY">{exp.from}</Moment> -{" "}
-                  {!exp.current ? (
+                  {!exp.current && exp.to !== null ? (
                     <Moment format="MMM YYYY">{exp.to}</Moment>
                   ) : (
                     "Current"
