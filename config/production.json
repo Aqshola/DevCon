@@ -1,0 +1,6 @@
+{
+  "mongoURI": "mongodb://shola:shola123@learn-shard-00-00.0kkfa.mongodb.net:27017,learn-shard-00-01.0kkfa.mongodb.net:27017,learn-shard-00-02.0kkfa.mongodb.net:27017/<dbname>?ssl=true&replicaSet=atlas-12b8in-shard-0&authSource=admin&retryWrites=true&w=majority",
+  "jwtSecret": "secretkey",
+  "githubClientId": "368fe6252015b9d15f16",
+  "githubSecret": "ba24d7d1ff05d2721b9ef706217f61a5cef4aad8"
+}
