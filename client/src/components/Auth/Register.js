@@ -112,18 +112,10 @@ const Register = ({ isAuthenticated, setAlert, register }) => {
             className={classes.inputSpace}
             variant="outlined"
             label="password"
-            type="password"
             name="password"
             value={password}
             onChange={onChange}
-          />
-          <TextField
-            className={classes.inputSpace}
-            variant="outlined"
-            label="Confrim password"
-            name="password2"
             type={show ? "text" : "password"}
-            value={password2}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -133,6 +125,14 @@ const Register = ({ isAuthenticated, setAlert, register }) => {
                 </InputAdornment>
               ),
             }}
+          />
+          <TextField
+            className={classes.inputSpace}
+            variant="outlined"
+            label="Confrim password"
+            name="password2"
+            value={password2}
+            type={show ? "text" : "password"}
             onChange={onChange}
           />
         </FormControl>

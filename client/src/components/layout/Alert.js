@@ -25,7 +25,7 @@ const AlertCom = ({ alerts, removeAlert }) => {
 
   return (
     <Snackbar
-      anchorOrigin={{ vertical: "top", horizontal: "left" }}
+      anchorOrigin={{ vertical: "top", horizontal: "center" }}
       open={alerts.snack}
       style={{
         display: "flex",
