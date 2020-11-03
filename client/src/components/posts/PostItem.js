@@ -24,7 +24,6 @@ import AlertCom from "../layout/Alert";
 import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ChatBubbleOutlineOutlinedIcon from "@material-ui/icons/ChatBubbleOutlineOutlined";
-import ShareOutlinedIcon from "@material-ui/icons/ShareOutlined";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import SendIcon from "@material-ui/icons/Send";
 
@@ -47,7 +46,6 @@ const style = makeStyles((theme) => ({
   },
   cardActions: {
     display: "flex",
-
     width: "100%",
   },
   detail: {
@@ -58,7 +56,7 @@ const style = makeStyles((theme) => ({
   },
   actionBtn: {
     margin: theme.spacing(1),
-    width: "30%",
+    width: "50%",
   },
   menu: {
     marginRight: theme.spacing(2),
@@ -100,6 +98,7 @@ const PostItem = ({
   const [commentText, setCommentText] = useState("");
   const [field, setfield] = useState("");
   const [commentId, setcommentId] = useState();
+  const [focus, setfocus] = useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -189,14 +188,12 @@ const PostItem = ({
             <Button
               className={classes.actionBtn}
               startIcon={<ChatBubbleOutlineOutlinedIcon />}
+              onClick={() => {
+                setfocus(true);
+                window.location.href = "#comment";
+              }}
             >
               Comment
-            </Button>
-            <Button
-              className={classes.actionBtn}
-              startIcon={<ShareOutlinedIcon />}
-            >
-              Share
             </Button>
           </Box>
         </CardActions>
@@ -244,6 +241,7 @@ const PostItem = ({
               alignItems="center"
             >
               <TextField
+                id="comment"
                 multiline
                 placeholder="Write a comment..."
                 InputProps={{ disableUnderline: true }}
@@ -251,6 +249,14 @@ const PostItem = ({
                 fullWidth
                 onChange={(e) => setCommentText(e.target.value)}
                 value={commentText}
+                focused={focus}
+                onKeyDown={(e) => {
+                  if (e.keyCode == 13) {
+                    e.preventDefault();
+                    addComment(_id, { commentText });
+                    setCommentText("");
+                  }
+                }}
               />
             </Box>
             <Box alignSelf="bottom" height="100%">
