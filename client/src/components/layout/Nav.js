@@ -11,7 +11,7 @@ import {
   Box,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import { Link as routeLink } from "react-router-dom";
+import { Link as routeLink, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../../action/auth";
 import { getPosts } from "../../action/post";
@@ -49,12 +49,15 @@ const useStyles = makeStyles((theme) => ({
 
 const Nav = ({ auth: { isAuthenticated, loading }, logout, getPosts }) => {
   const classes = useStyles();
+  const currentUrl = useLocation().pathname;
+
   const [state, setState] = React.useState({
     top: false,
     left: false,
     bottom: false,
     right: false,
   });
+
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event &&
@@ -115,14 +118,26 @@ const Nav = ({ auth: { isAuthenticated, loading }, logout, getPosts }) => {
   const AuthLink = ({ classes, divClass }) => {
     return (
       <div className={divClass}>
-        <Button
-          component={routeLink}
-          to="/dashboard"
-          className={classes}
-          color="inherit"
-        >
-          Dashboard
-        </Button>
+        {currentUrl === "/dashboard" ? (
+          <Button
+            component={routeLink}
+            to="/posts"
+            className={classes}
+            color="inherit"
+          >
+            Post
+          </Button>
+        ) : (
+          <Button
+            component={routeLink}
+            to="/dashboard"
+            className={classes}
+            color="inherit"
+          >
+            Dashboard
+          </Button>
+        )}
+
         <Button
           component={routeLink}
           to="/login"
