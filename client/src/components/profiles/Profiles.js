@@ -3,10 +3,30 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
 import { getProfiles } from "../../action/profile";
-import { Box, Container, Typography } from "@material-ui/core";
+import {
+  Box,
+  Container,
+  Typography,
+  createStyles,
+  makeStyles,
+} from "@material-ui/core";
 import { ProfileItem } from "./ProfileItem";
 
+const style = makeStyles((theme) =>
+  createStyles({
+    profiles: {
+      marginTop: "20px",
+      display: "grid",
+      width: "90%",
+      gridTemplateColumns: "repeat(auto-fit, 300px);",
+      gridTemplateRows: "repeat(auto-fill)",
+      justifyContent: "space-between",
+    },
+  })
+);
+
 const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
+  const classes = style();
   useEffect(() => {
     getProfiles();
   }, [getProfiles]);
@@ -23,13 +43,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
             </Typography>
             <Typography variant="subtitle1">Browse & Connect</Typography>
           </Box>
-          <Box
-            marginY="20px"
-            display="flex"
-            width="90%"
-            justifyContent="space-between"
-            flexWrap="wrap"
-          >
+          <Box className={classes.profiles}>
             {profiles.length > 0 ? (
               profiles.map((profile) => (
                 <ProfileItem key={profile._id} profile={profile} />
