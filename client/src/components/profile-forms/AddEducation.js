@@ -136,7 +136,7 @@ const AddEducation = ({ addEducation, history }) => {
                 value={current}
               />
             }
-            label="Current Job"
+            label="Current"
           />
         </Box>
         <TextField
