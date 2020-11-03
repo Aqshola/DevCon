@@ -40,6 +40,10 @@ export const ProfileTop = ({
   },
 }) => {
   const classes = style();
+  const socialLink = (social) =>
+    social.includes("https://") || social.includes("http://")
+      ? social
+      : `https://${social}`;
 
   const Socials = () => {
     return (
@@ -47,11 +51,7 @@ export const ProfileTop = ({
         {website && website !== " " && (
           <IconButton
             component={Links}
-            href={
-              website.includes("https://") || website.includes("http://")
-                ? website
-                : `https://${website}`
-            }
+            href={socialLink(website)}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -62,7 +62,7 @@ export const ProfileTop = ({
           <IconButton>
             <TwitterIcon
               component={Links}
-              href={`${social.twitter}`}
+              href={socialLink(social.twitter)}
               target="_blank"
               rel="noopener noreferrer"
             />
@@ -71,7 +71,7 @@ export const ProfileTop = ({
         {social && social.facebook && social.facebook !== " " && (
           <IconButton
             component={Links}
-            href={`${social.facebook}`}
+            href={socialLink(social.facebook)}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -81,7 +81,7 @@ export const ProfileTop = ({
         {social && social.youtube && social.youtube !== " " && (
           <IconButton
             component={Links}
-            href={`${social.youtube}`}
+            href={socialLink(social.youtube)}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -91,7 +91,7 @@ export const ProfileTop = ({
         {social && social.instagram && social.instagram !== " " && (
           <IconButton
             component={Links}
-            href={`${social.instagram}`}
+            href={socialLink(social.instagram)}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -101,7 +101,7 @@ export const ProfileTop = ({
         {social && social.linkedin && social.linkedin !== " " && (
           <IconButton
             component={Links}
-            href={`${social.linkedin}`}
+            href={socialLink(social.linkedin)}
             target="_blank"
             rel="noopener noreferrer"
           >
