@@ -22,8 +22,6 @@ import Profile from "./components/profile/Profile";
 import Posts from "./components/posts/Posts";
 import NotFound from "./components/layout/NotFound";
 
-document.title = "Devcon";
-
 if (localStorage.token) {
   setAuthToken(localStorage.getItem("token"));
 }
